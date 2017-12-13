@@ -1,0 +1,28 @@
+.post-list__item {
+    width: 25%;
+    padding: 5px;
+    margin-bottom: 15px;
+}
+.post-item__inner {
+    border: 1px solid #999;
+    padding: 5px;
+}
+.post-item__title {
+    text-transform: uppercase;
+    font-size: 1rem;
+    text-align: center;
+}
+.post-item__img {
+    width: 150px;
+}
+.post-item__body {
+    text-align: justify;
+}
+.post-item__link {
+    color: #fff;
+    text-decoration: none;
+}
+.post-item__link:hover {
+    text-decoration: none;
+    color: #fff;
+}
