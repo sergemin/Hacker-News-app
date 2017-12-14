@@ -8,32 +8,48 @@ export default class App extends Component {
         this.state = {
             posts: []
         }
+        this.checkStatus = this.checkStatus.bind(this);
+        this.parseJSON   = this.parseJSON.bind(this);
     }
+    checkStatus(response) {
+        if (response.status >= 200 && response.status < 300) {
+            return response;
+        } else {
+            let error = new Error(response.statusText);
+            error.response = response;
+            throw error
+        }
+    }
+    parseJSON(response) {
+        return response.json();
+    }  
     componentDidMount() {
         fetch('https://api.github.com/users')
-            .then(response => response.json())
-        .then(response => {
-            this.setState({
-                posts: response 
+            .then(this.checkStatus)
+            .then(this.parseJSON)
+            .then(response => {
+                this.setState({
+                    posts: response
+                })
             })
-        })
-        .catch(error => error);
-        }
+            .catch(error => {
+                console.log('request failed', error)
+            });
+    }
     render() {
         return (
             <div className="App">
                 <section>
-                    <h2 className="section-title">My React app with fake REST API</h2>
+                    <h1 className="section-title">My React app with fake REST API</h1>
                         <div className="container">
-                            <div className="block-list">
+                            <ul className="block-list">
                             {this.state.posts.map((item, index) => (
-                            <PostCard key     = {item.id}
-                                      name    = {item.name}
-                                      image   = {item.avatar_url}
-                                      content = {item.body}
-                                      user    = {item.login} />
+                                <li key = {item.id}
+                                    className="post-list__item">
+                                    <PostCard user = {item} />
+                                </li>
                             ))}
-                        </div>
+                        </ul>
                     </div>
                 </section>
             </div>

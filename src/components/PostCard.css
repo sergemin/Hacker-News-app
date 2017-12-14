@@ -2,6 +2,7 @@
     width: 25%;
     padding: 5px;
     margin-bottom: 15px;
+    list-style: none;
 }
 .post-item__inner {
     border: 1px solid #999;
