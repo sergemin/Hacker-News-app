@@ -22,7 +22,7 @@ export default class App extends Component {
     }
     parseJSON(response) {
         return response.json();
-    }  
+    }
     componentDidMount() {
         fetch('https://api.github.com/users')
             .then(this.checkStatus)
@@ -39,19 +39,17 @@ export default class App extends Component {
     render() {
         return (
             <div className="App">
-                <section>
-                    <h1 className="section-title">My React app with fake REST API</h1>
-                        <div className="container">
-                            <ul className="block-list">
-                            {this.state.posts.map((item, index) => (
-                                <li key = {item.id}
-                                    className="post-list__item">
-                                    <PostCard user = {item} />
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </section>
+                <h1 className="section-title">My React app with fake REST API</h1>
+                <div className="container">
+                    <ul className="block-list">
+                        {this.state.posts.map((item, index) => (
+                            <li key = {item.id}
+                                className="post-list__item">
+                                <PostCard user = {item} />
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         );
     }
