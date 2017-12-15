@@ -14,8 +14,7 @@ function PostCard(props) {
     )
 }
 
-PostCard.defaultProps = {
-    title: PropTypes.string.isRequired,
-    content: PropTypes.string
+PostCard.propTypes = {
+    user: PropTypes.object.isRequired
 };
 export default PostCard;

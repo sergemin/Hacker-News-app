@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import PostCard from './components/PostCard';
+import fetchJSON from './helpers/fetch-json';
 
 export default class App extends Component {
     constructor(props) {
@@ -8,25 +9,9 @@ export default class App extends Component {
         this.state = {
             posts: []
         }
-        this.checkStatus = this.checkStatus.bind(this);
-        this.parseJSON   = this.parseJSON.bind(this);
-    }
-    checkStatus(response) {
-        if (response.status >= 200 && response.status < 300) {
-            return response;
-        } else {
-            let error = new Error(response.statusText);
-            error.response = response;
-            throw error
-        }
-    }
-    parseJSON(response) {
-        return response.json();
     }
     componentDidMount() {
-        fetch('https://api.github.com/users')
-            .then(this.checkStatus)
-            .then(this.parseJSON)
+        fetchJSON('https://api.github.com/users')
             .then(response => {
                 this.setState({
                     posts: response
@@ -42,11 +27,11 @@ export default class App extends Component {
                 <h1 className="section-title">My React app with fake REST API</h1>
                 <div className="container">
                     <ul className="block-list">
-                        {this.state.posts.map((item, index) => (
+                        {this.state.posts.map((item) => (
                             <li key = {item.id}
                                 className="post-list__item">
                                 <PostCard user = {item} />
-                            </li>
+                            </li> 
                         ))}
                     </ul>
                 </div>
