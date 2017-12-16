@@ -1,3 +1,7 @@
+body {
+  background: #005A31;
+  color: #fff;
+}
 .App {
   text-align: center;
 }
@@ -25,4 +29,23 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+/*user styles*/
+* {
+  box-sizing: border-box;
+}
+.container {
+  width: 1200px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.block-list {
+  display: flex;
+  flex-flow: row wrap;
+}
+.block {
+  width: 33%;
+  margin-bottom: 10px;
 }

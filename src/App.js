@@ -1,21 +1,41 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import PostCard from './components/PostCard';
+import fetchJSON from './helpers/fetch-json';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+export default class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            posts: []
+        }
+    }
+    componentDidMount() {
+        fetchJSON('https://api.github.com/users')
+            .then(response => {
+                this.setState({
+                    posts: response
+                })
+            })
+            .catch(error => {
+                console.log('request failed', error)
+            });
+    }
+    render() {
+        return (
+            <div className="App">
+                <h1 className="section-title">My React app with fake REST API</h1>
+                <div className="container">
+                    <ul className="block-list">
+                        {this.state.posts.map((item) => (
+                            <li key = {item.id}
+                                className="post-list__item">
+                                <PostCard user = {item} />
+                            </li> 
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        );
+    }
 }
-
-export default App;
