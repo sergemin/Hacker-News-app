@@ -1,6 +1,5 @@
 import React from 'react';
 import './PostPage.css';
-import { Link } from 'react-router-dom';
 import fetchJSON from './../helpers/fetch-json';
 
 
@@ -12,7 +11,7 @@ export default class PostPage extends React.Component {
         }
     }
     componentDidMount() {
-        fetchJSON(`https://api.github.com/users/${this.props.match.params.postID}`)
+        fetchJSON(`http://jsonplaceholder.typicode.com/posts/${this.props.match.params.postID}`)
             .then(response => {
                 this.setState({
                     postInfo: response
@@ -27,15 +26,10 @@ export default class PostPage extends React.Component {
         return (
             <section className="page-section">
                 <div className="container">
-                    <Link className='link-app' to='/'>Home page</Link>
-                    <h1>{postInfo.name}</h1>
-                    <div>
-                        <img src={postInfo.avatar_url} alt={postInfo.login} />
+                    <h1>{postInfo.title}</h1>
+                    <div className="post_description">
+                        {postInfo.body}
                     </div>
-                    <p>Github profile:
-                        <a href={postInfo.html_url} target="_blank">{postInfo.html_url}</a>
-                    </p>
-
                 </div>
             </section>
         )

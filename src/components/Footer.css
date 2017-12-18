@@ -1,0 +1,11 @@
+footer {
+    padding: 15px 0;
+    background: rgba(255,255,255,.1);
+}
+.footer__contacts {
+    margin: 0;
+    padding: 0;
+}
+.footer__contacts-item {
+    list-style: none;
+}
