@@ -12,12 +12,12 @@ import registerServiceWorker from './registerServiceWorker';
 ReactDOM.render(
     <Router>
         <div>
-            <Route path="/" component={Header}/>
+            <Header/>
             <Switch>
                 <Route exact path="/" component={App}/>
                 <Route path="/posts/:postID" component={PostPage}/>
             </Switch>
-            <Route path="/" component={Footer}/>
+            <Footer/>
         </div>
 
     </Router>, document.getElementById('root'));
