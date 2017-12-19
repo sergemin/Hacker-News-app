@@ -11,7 +11,7 @@ export default class App extends Component {
         }
     }
     componentDidMount() {
-        fetchJSON('https://api.github.com/users')
+        fetchJSON('http://jsonplaceholder.typicode.com/posts')
             .then(response => {
                 this.setState({
                     posts: response
@@ -30,7 +30,7 @@ export default class App extends Component {
                         {this.state.posts.map((item) => (
                             <li key = {item.id}
                                 className="post-list__item">
-                                <PostCard user = {item} />
+                                <PostCard post = {item} />
                             </li> 
                         ))}
                     </ul>
