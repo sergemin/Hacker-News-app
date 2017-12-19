@@ -49,3 +49,20 @@ body {
   width: 33%;
   margin-bottom: 10px;
 }
+
+.pagination {
+  margin: 0;
+  padding: 0;
+  text-align: right;
+}
+.pagination__item {
+  list-style: none;
+  display: inline-block;
+  margin: 5px;
+}
+.pagination__link {
+  display: block;
+  padding: 5px;
+  color: #fff;
+  border: 1px solid #fff;
+}

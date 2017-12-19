@@ -3,6 +3,8 @@ import './App.css';
 import PostCard from './components/PostCard';
 import fetchJSON from './helpers/fetch-json';
 
+import { Link } from 'react-router-dom';
+
 export default class App extends Component {
     constructor(props) {
         super(props);
@@ -10,8 +12,9 @@ export default class App extends Component {
             posts: []
         }
     }
-    componentDidMount() {
-        fetchJSON('http://jsonplaceholder.typicode.com/posts')
+    getPosts() {
+        let userID = this.props.match.params.userID ? this.props.match.params.userID : 1;
+        fetchJSON(`https://jsonplaceholder.typicode.com/posts?userId=${userID}`)
             .then(response => {
                 this.setState({
                     posts: response
@@ -20,6 +23,9 @@ export default class App extends Component {
             .catch(error => {
                 console.log('request failed', error)
             });
+    }
+    componentDidMount() {
+        this.getPosts();
     }
     render() {
         return (
@@ -33,6 +39,11 @@ export default class App extends Component {
                                 <PostCard post = {item} />
                             </li> 
                         ))}
+                    </ul>
+                    <ul className="pagination">
+                        <li className="pagination__item"><Link className='pagination__link' to="/">1</Link></li>
+                        <li className="pagination__item"><Link className='pagination__link' to="/2">2</Link></li>
+                        <li className="pagination__item"><Link className='pagination__link' to="/3">3</Link></li>
                     </ul>
                 </div>
             </div>
