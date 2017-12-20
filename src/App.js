@@ -18,7 +18,7 @@ export default class App extends Component {
             .then(response => {
                 this.setState({
                     posts: response
-                })
+                }, () => console.log(this.state.posts))
             })
             .catch(error => {
                 console.log('request failed', error)
@@ -41,9 +41,21 @@ export default class App extends Component {
                         ))}
                     </ul>
                     <ul className="pagination">
-                        <li className="pagination__item"><Link className='pagination__link' to="/">1</Link></li>
-                        <li className="pagination__item"><Link className='pagination__link' to="/2">2</Link></li>
-                        <li className="pagination__item"><Link className='pagination__link' to="/3">3</Link></li>
+                        <li className="pagination__item">
+                            <Link to="/"
+                                  className='pagination__link'
+                                  onClick={this.getPosts.bind(this)}>1</Link>
+                        </li>
+                        <li className="pagination__item">
+                            <Link to="/2"
+                                  className='pagination__link'
+                                  onClick={this.getPosts.bind(this)}>2</Link>
+                        </li>
+                        <li className="pagination__item">
+                            <Link to="/3"
+                                  className='pagination__link'
+                                  onClick={this.getPosts.bind(this)}>3</Link>
+                        </li>
                     </ul>
                 </div>
             </div>
