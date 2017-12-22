@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import PostCard from './components/PostCard';
 import fetchJSON from './helpers/fetch-json';
+import Pagination from './components/Pagination';
 
 export default class App extends Component {
     constructor(props) {
@@ -9,15 +10,27 @@ export default class App extends Component {
         this.state = {
             posts: [],
             postsIDs: [],
-            totalCountOfPosts: ''
+            totalCountOfPosts: '',
+            countOfPostOnThePage: 10,
+            paginationArray: []
         };
     }
     componentDidMount() {
+        let paginationPath = this.props.match.params.userID || '';
+        console.log(paginationPath);
         fetchJSON(`https://hacker-news.firebaseio.com/v0/topstories.json`)
             .then(response => {
                 this.setState({
                     postsIDs: response,
                     totalCountOfPosts: response.length
+                });
+                let paginationArray = [];
+                let numberPagination = Math.ceil((this.state.totalCountOfPosts)/(this.state.countOfPostOnThePage));
+                for(let i=1; i<=numberPagination; i++) {
+                    paginationArray.push(i);
+                }
+                this.setState({
+                    paginationArray: paginationArray
                 });
                 return response;
             })
@@ -52,6 +65,7 @@ export default class App extends Component {
                             </li> 
                         ))}
                     </ul>
+                    <Pagination numbers={this.state.paginationArray} />
                 </div>
             </div>
         );

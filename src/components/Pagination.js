@@ -3,16 +3,16 @@ import './Pagination.css';
 
 import { Link } from 'react-router-dom';
 
-export default function(props) {
+export default function Pagination(props) {
     return (
         <ul className="pagination">
-            {props.pagination.map( item => {
-                 <li key={item} className="pagination__item">
-                    <Link to={item === 1 ? '1' : item}
-                          className='pagination__link'
-                          onClick={console.log(item)}>{item}</Link>
-                 </li>
-            })}
+            {props.numbers.map( item => (
+                <li className="pagination__item" key = {item}>
+                    <Link className="pagination__link"
+                          to={`/${item === 1 ? '/' : item}`}>{item}</Link>
+                </li>
+            ))}
+
         </ul>
     )
 }
