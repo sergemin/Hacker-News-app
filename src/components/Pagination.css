@@ -1,0 +1,11 @@
+.pagination {
+    margin: 0;
+    padding: 0;
+}
+.pagination__item {
+    list-style: none;
+    display: inline-block;
+}
+.pagination__link {
+
+}
