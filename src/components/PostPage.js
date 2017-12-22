@@ -11,7 +11,7 @@ export default class PostPage extends React.Component {
         }
     }
     componentDidMount() {
-        fetchJSON(`http://jsonplaceholder.typicode.com/posts/${this.props.match.params.postID}`)
+        fetchJSON(`https://hacker-news.firebaseio.com/v0/item/${this.props.match.params.postID}.json`)
             .then(response => {
                 this.setState({
                     postInfo: response
@@ -27,8 +27,9 @@ export default class PostPage extends React.Component {
             <section className="page-section">
                 <div className="container">
                     <h1>{postInfo.title}</h1>
-                    <div className="post_description">
-                        {postInfo.body}
+                    <div className="post">
+                        <div className="post__creator">{postInfo.by}</div>
+                        <div className="post__date">{new Date(postInfo.time).toLocaleString()}</div>
                     </div>
                 </div>
             </section>

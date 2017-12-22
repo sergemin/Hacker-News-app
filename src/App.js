@@ -3,34 +3,43 @@ import './App.css';
 import PostCard from './components/PostCard';
 import fetchJSON from './helpers/fetch-json';
 
-import { Link } from 'react-router-dom';
-
 export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
             posts: [],
-            pagination: [1, 2, 3]
+            postsIDs: [],
+            totalCountOfPosts: ''
         };
-        this.countOfElementsInPag = 10;
-    }
-    getPosts() {
-
     }
     componentDidMount() {
-        fetchJSON(`https://jsonplaceholder.typicode.com/posts`)
+        fetchJSON(`https://hacker-news.firebaseio.com/v0/topstories.json`)
             .then(response => {
                 this.setState({
-                    posts: response
-                })
+                    postsIDs: response,
+                    totalCountOfPosts: response.length
+                });
+                return response;
+            })
+            .then(() => {
+                for(let i=0; i<10; i++) {
+                    fetchJSON(`https://hacker-news.firebaseio.com/v0/item/${this.state.postsIDs[i]}.json`)
+                        .then(response => {
+                            let updatedPosts = [response, ...this.state.posts];
+                            this.setState({
+                                posts: updatedPosts
+                            })
+                        })
+                        .catch(error => {
+                            console.log('request failed', error)
+                        });
+                }
             })
             .catch(error => {
                 console.log('request failed', error)
             });
     }
     render() {
-        let countOfPagesPag = Math.ceil(this.state.posts.length/this.countOfElementsInPag);
-        console.log(countOfPagesPag);
         return (
             <div className="App">
                 <h1 className="section-title">My React app with fake REST API</h1>
