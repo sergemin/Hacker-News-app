@@ -3,19 +3,12 @@ import './App.css';
 import PostCard from './components/PostCard';
 import fetchJSON from './helpers/fetch-json';
 
-import { Link } from 'react-router-dom';
-
 export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: [],
-            pagination: [1, 2, 3]
+            posts: []
         };
-        this.countOfElementsInPag = 10;
-    }
-    getPosts() {
-
     }
     componentDidMount() {
         fetchJSON(`https://jsonplaceholder.typicode.com/posts`)
@@ -29,8 +22,6 @@ export default class App extends Component {
             });
     }
     render() {
-        let countOfPagesPag = Math.ceil(this.state.posts.length/this.countOfElementsInPag);
-        console.log(countOfPagesPag);
         return (
             <div className="App">
                 <h1 className="section-title">My React app with fake REST API</h1>
