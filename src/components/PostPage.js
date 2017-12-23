@@ -11,7 +11,7 @@ export default class PostPage extends React.Component {
         }
     }
     componentDidMount() {
-        fetchJSON(`http://jsonplaceholder.typicode.com/posts/${this.props.match.params.postID}`)
+        fetchJSON(`https://hacker-news.firebaseio.com/v0/item/${this.props.match.params.postID}.json`)
             .then(response => {
                 this.setState({
                     postInfo: response

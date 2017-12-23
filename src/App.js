@@ -7,18 +7,34 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            postsID: [],
             posts: []
         };
     }
     componentDidMount() {
-        fetchJSON(`https://jsonplaceholder.typicode.com/posts`)
+        fetchJSON(`https://hacker-news.firebaseio.com/v0/topstories.json`)
             .then(response => {
                 this.setState({
-                    posts: response
-                })
+                    postsID: response
+                });
+                return response
+            })
+            .then(() => {
+                for(let i=0; i<10; i++) {
+                    fetchJSON(`https://hacker-news.firebaseio.com/v0/item/${this.state.postsID[i]}.json`)
+                        .then(response => {
+                            let updatedPosts = [response, ...this.state.posts];
+                            this.setState({
+                                posts: updatedPosts
+                            })
+                        })
+                        .catch(error => {
+                            console.log('request failed', error);
+                        });
+                }
             })
             .catch(error => {
-                console.log('request failed', error)
+                console.log('request failed', error);
             });
     }
     render() {
