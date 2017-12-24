@@ -7,31 +7,45 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            postsID: [],
+            hnAPI: 'https://hacker-news.firebaseio.com/v0',
+            allPostsTopStoriesIDs: [],
+            fetchPostsArray: [],
             posts: []
         };
     }
     componentDidMount() {
-        fetchJSON(`https://hacker-news.firebaseio.com/v0/topstories.json`)
+        const hnAPI = this.state.hnAPI;
+        fetchJSON(`${hnAPI}/topstories.json`)
             .then(response => {
                 this.setState({
-                    postsID: response
+                    allPostsTopStoriesIDs: response
                 });
-                return response
+                return response;
             })
-            .then(() => {
-                for(let i=0; i<10; i++) {
-                    fetchJSON(`https://hacker-news.firebaseio.com/v0/item/${this.state.postsID[i]}.json`)
-                        .then(response => {
-                            let updatedPosts = [response, ...this.state.posts];
-                            this.setState({
-                                posts: updatedPosts
-                            })
-                        })
-                        .catch(error => {
-                            console.log('request failed', error);
-                        });
-                }
+            .then(response => {
+                let blocksToShow = response.filter((item, i) => {
+                    return i<10;
+                });
+                return blocksToShow;
+            })
+            .then(response => {
+                let requestLinks = response.map((item) => {
+                    return `${hnAPI}/item/${item}.json`;
+                });
+                return requestLinks;
+            })
+            .then(response => {
+                let fetchPostsArray = response.map((item) => {
+                    return fetchJSON(`${item}`);
+                });
+                return fetchPostsArray;
+            })
+            .then(response => Promise.all(response))
+            .then(response => {
+                this.setState({
+                    posts: response
+                });
+                return response;
             })
             .catch(error => {
                 console.log('request failed', error);
