@@ -22,24 +22,9 @@ export default class App extends Component {
                 });
                 return response;
             })
-            .then(response => {
-                let blocksToShow = response.filter((item, i) => {
-                    return i<10;
-                });
-                return blocksToShow;
-            })
-            .then(response => {
-                let requestLinks = response.map((item) => {
-                    return `${hnAPI}/item/${item}.json`;
-                });
-                return requestLinks;
-            })
-            .then(response => {
-                let fetchPostsArray = response.map((item) => {
-                    return fetchJSON(`${item}`);
-                });
-                return fetchPostsArray;
-            })
+            .then(blocksToShow => blocksToShow.filter((item, i) => i<10))
+            .then(firstTenPostIds => firstTenPostIds.map(id => `${hnAPI}/item/${id}.json`))
+            .then(firstTenPostUrls => firstTenPostUrls.map(url => fetchJSON(url)))
             .then(response => Promise.all(response))
             .then(response => {
                 this.setState({
