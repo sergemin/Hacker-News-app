@@ -15,6 +15,7 @@ ReactDOM.render(
             <Header/>
             <Switch>
                 <Route exact path="/" component={App}/>
+                <Route exact path="/:paginationPage" component={App}/>
                 <Route path="/posts/:postID" component={PostPage}/>
             </Switch>
             <Footer/>

@@ -3,14 +3,16 @@ import './App.css';
 import PostCard from './components/PostCard';
 import fetchJSON from './helpers/fetch-json';
 
+import Pagination from './components/Pagination';
+
 export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
             hnAPI: 'https://hacker-news.firebaseio.com/v0',
             allPostsTopStoriesIDs: [],
-            fetchPostsArray: [],
-            posts: []
+            posts: [],
+            postsPerPage: 10
         };
     }
     componentDidMount() {
@@ -49,6 +51,7 @@ export default class App extends Component {
                             </li> 
                         ))}
                     </ul>
+                    <Pagination paginationCount={this.state.allPostsTopStoriesIDs.length/this.state.postsPerPage} />
                 </div>
             </div>
         );
