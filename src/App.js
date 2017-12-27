@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import PostCard from './components/PostCard';
+
 import fetchJSON from './helpers/fetch-json';
+import fetchPosts from './helpers/fetch-posts';
 
 import Pagination from './components/Pagination';
 
@@ -24,10 +26,7 @@ export default class App extends Component {
                 });
                 return response;
             })
-            .then(blocksToShow => blocksToShow.filter((item, i) => i<10))
-            .then(firstTenPostIds => firstTenPostIds.map(id => `${hnAPI}/item/${id}.json`))
-            .then(firstTenPostUrls => firstTenPostUrls.map(url => fetchJSON(url)))
-            .then(response => Promise.all(response))
+            .then(blocksToShow => fetchPosts(hnAPI, blocksToShow, 1, this.state.postsPerPage))
             .then(response => {
                 this.setState({
                     posts: response
@@ -48,7 +47,7 @@ export default class App extends Component {
                             <li key = {item.id}
                                 className="post-list__item">
                                 <PostCard post = {item} />
-                            </li> 
+                            </li>
                         ))}
                     </ul>
                     <Pagination paginationCount={this.state.allPostsTopStoriesIDs.length/this.state.postsPerPage} />
