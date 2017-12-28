@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import PropTypes from 'prop-types';
 
 import PostsList from './PostList';
 import Pagination  from './Pagination';
@@ -13,13 +14,23 @@ class PageIndex extends React.Component {
         this.state = {
             hnAPI: 'https://hacker-news.firebaseio.com/v0',
             posts: [],
-            allPostsTopStoriesIDs: ''
+            allPostsTopStoriesIDs: '',
+            postsPerPage: 10,
+            pageNumber: 1
         }
     }
+    static propTypes = {
+        match: PropTypes.object.isRequired,
+        location: PropTypes.object.isRequired,
+        history: PropTypes.object.isRequired
+    }
+
     componentDidMount() {
         const hnAPI = this.state.hnAPI;
-        const offset = this.props.match.IndexOffset || 0;
-        console.log(offset);
+        const offset = this.props.match.params.IndexOffset || 0;
+        this.setState({
+            pageNumber: offset
+        });
         fetchJSON(`${hnAPI}/topstories.json`)
             .then(response => {
                 this.setState({
@@ -27,7 +38,7 @@ class PageIndex extends React.Component {
                 });
                 return response;
             })
-            .then(blocksToShow => fetchPosts(hnAPI, blocksToShow, 1, this.state.postsPerPage))
+            .then(blocksToShow => fetchPosts(hnAPI, blocksToShow, this.state.pageNumber, this.state.postsPerPage))
             .then(response => {
                 this.setState({
                     posts: response
@@ -42,7 +53,8 @@ class PageIndex extends React.Component {
         return (
             <div>
                 <PostsList posts={this.state.posts} />
-                <Pagination offset={this.props.match.IndexOffset || 0} />
+                <Pagination paginationCount={this.state.allPostsTopStoriesIDs.length/this.state.postsPerPage}
+                    offset={this.props.match.params.IndexOffset || 0} />
             </div>
         )
     }

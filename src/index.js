@@ -12,13 +12,13 @@ import registerServiceWorker from './registerServiceWorker';
 ReactDOM.render(
     <Router>
         <div>
-            <Header/>
+            <Header />
             <Switch>
                 <Route exact path="/" component={App}/>
                 <Route exact path="/:IndexOffset" component={App}/>
                 <Route path="/posts/:postID" component={PostPage}/>
             </Switch>
-            <Footer/>
+            <Footer />
         </div>
 
     </Router>, document.getElementById('root'));
