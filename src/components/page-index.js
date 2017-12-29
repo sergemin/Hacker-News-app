@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import PropTypes from 'prop-types';
 
 import PostsList from './PostList';
 import Pagination  from './Pagination';
@@ -14,31 +13,37 @@ class PageIndex extends React.Component {
         this.state = {
             hnAPI: 'https://hacker-news.firebaseio.com/v0',
             posts: [],
-            allPostsTopStoriesIDs: '',
-            postsPerPage: 10,
-            pageNumber: 1
+            allPostsTopStoriesIDs: ''
         }
     }
-    static propTypes = {
-        match: PropTypes.object.isRequired,
-        location: PropTypes.object.isRequired,
-        history: PropTypes.object.isRequired
-    }
-
     componentDidMount() {
-        const hnAPI = this.state.hnAPI;
-        const offset = this.props.match.params.IndexOffset || 0;
-        this.setState({
-            pageNumber: offset
-        });
-        fetchJSON(`${hnAPI}/topstories.json`)
+        const offset = this.props.match.params.IndexOffset || 1;
+        let postPerPage = this.props.postPerPage;
+        fetchJSON(`${this.state.hnAPI}/topstories.json`)
             .then(response => {
                 this.setState({
                     allPostsTopStoriesIDs: response
                 });
                 return response;
             })
-            .then(blocksToShow => fetchPosts(hnAPI, blocksToShow, this.state.pageNumber, this.state.postsPerPage))
+            .then(blocksToShow => fetchPosts(this.state.hnAPI, blocksToShow, offset, postPerPage))
+            .then(response => {
+                this.setState({
+                    posts: response
+                });
+                return response;
+            })
+            .catch(error => {
+                console.log('request failed', error);
+            });
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let postPerPage = nextProps.postPerPage;
+        let allPostIDS = this.state.allPostsTopStoriesIDs;
+        let newPage = nextProps.match.params.IndexOffset || 1;
+        new Promise(resolve => resolve(allPostIDS))
+            .then(blocksToShow => fetchPosts(this.state.hnAPI, blocksToShow, newPage, postPerPage))
             .then(response => {
                 this.setState({
                     posts: response
@@ -53,11 +58,10 @@ class PageIndex extends React.Component {
         return (
             <div>
                 <PostsList posts={this.state.posts} />
-                <Pagination paginationCount={this.state.allPostsTopStoriesIDs.length/this.state.postsPerPage}
+                <Pagination paginationCount={this.state.allPostsTopStoriesIDs.length/this.props.postPerPage}
                     offset={this.props.match.params.IndexOffset || 0} />
             </div>
         )
     }
 }
-
 export default withRouter(PageIndex);
