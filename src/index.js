@@ -1,34 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-
-import Header from './components/Header';
-import Footer from './components/Footer';
-import App from './App';
-import PageIndex from './components/page-index';
-
-import PostPage from './components/PostPage';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(
-    <Router>
-        <div>
-            <Header />
-            <Switch>
-                <Route exact path="/" component={App}/>
-                <Route exact path="/:IndexOffset" component={App}/>
-                <Route path="/posts/:postID" component={PostPage}/>
-            </Switch>
-            <Footer />
-        </div>
+import App from './App';
+import './index.css';
 
-    </Router>, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
-
-
-
-
-
-
-

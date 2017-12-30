@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import PageIndex from './components/page-index';
+import { Header, Footer, PageIndex, PagePost } from './components';
+
+import './App.css';
 
 export default class App extends Component {
     constructor(props) {
@@ -14,16 +16,17 @@ export default class App extends Component {
         return (
             <div className="App">
                 <h1 className="section-title">My React app with fake REST API</h1>
-                <div className="container">
-                    <PageIndex />
-                </div>
+                <Router>
+                  <div className="container">
+                    <Header />
+                    <Switch>
+                      <Route exact path="/:IndexOffset?" component={PageIndex}/>
+                      <Route path="/posts/:postID" component={PagePost}/>
+                    </Switch>
+                    <Footer />
+                  </div>
+                </Router>
             </div>
         );
     }
 }
-
-
-
-
-
-
