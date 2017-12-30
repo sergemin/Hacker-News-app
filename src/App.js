@@ -10,12 +10,6 @@ export default class App extends Component {
             postsPerPage: 10,
         };
     }
-    changeQuantities(e) {
-        let elementsQuantities = e.target.value;
-        this.setState({
-            postsPerPage: elementsQuantities
-        })
-    }
     render() {
         return (
             <div className="App">
@@ -27,3 +21,9 @@ export default class App extends Component {
         );
     }
 }
+
+
+
+
+
+

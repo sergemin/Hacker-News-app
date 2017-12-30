@@ -20,3 +20,7 @@ PostCard.propTypes = {
     post: PropTypes.object.isRequired
 };
 export default PostCard;
+
+
+
+

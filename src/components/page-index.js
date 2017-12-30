@@ -18,8 +18,8 @@ class PageIndex extends React.Component {
         }
     }
     componentDidMount() {
-        const offset = this.props.match.params.IndexOffset || 1;
-        let postPerPage = this.state.postPerPage;
+        const offset = this.props.match.params.IndexOffset || 1,
+              postPerPage = this.state.postPerPage;
         fetchJSON(`${this.state.hnAPI}/topstories.json`)
             .then(response => {
                 this.setState({
@@ -27,16 +27,7 @@ class PageIndex extends React.Component {
                 });
                 return response;
             })
-            .then(blocksToShow => fetchPosts(this.state.hnAPI, blocksToShow, offset, postPerPage))
-            .then(response => {
-                this.setState({
-                    posts: response
-                });
-                return response;
-            })
-            .catch(error => {
-                console.log('request failed', error);
-            });
+            .then(blocksToShow => fetchPosts(this.state.hnAPI, blocksToShow, offset, postPerPage, this))
     }
 
     componentWillReceiveProps(nextProps) {
@@ -44,25 +35,25 @@ class PageIndex extends React.Component {
         let allPostIDS = this.state.allPostsTopStoriesIDs;
         let newPage = nextProps.match.params.IndexOffset || 1;
         new Promise(resolve => resolve(allPostIDS))
-            .then(blocksToShow => fetchPosts(this.state.hnAPI, blocksToShow, newPage, postPerPage))
-            .then(response => {
-                this.setState({
-                    posts: response
-                });
-                return response;
-            })
-            .catch(error => {
-                console.log('request failed', error);
-            });
+            .then(blocksToShow => fetchPosts(this.state.hnAPI, blocksToShow, newPage, postPerPage, this))
     }
     render() {
-        return (
-            <div>
-                <PostsList posts={this.state.posts} />
-                <Pagination paginationCount={this.state.allPostsTopStoriesIDs.length/this.state.postPerPage}
-                    offset={this.props.match.params.IndexOffset || 0} />
-            </div>
-        )
+        const allIDs = this.state.allPostsTopStoriesIDs,
+              postPerPage = this.state.postPerPage;
+        let indexOffset = this.props.match.params.IndexOffset;
+        return [
+                <PostsList  posts={this.state.posts}
+                            key={1}/>,
+                <Pagination paginationCount={allIDs.length/postPerPage}
+                            offset={indexOffset || 0}
+                            key={2}/>
+            ]
     }
 }
 export default withRouter(PageIndex);
+
+
+
+
+
+

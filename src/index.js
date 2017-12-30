@@ -5,6 +5,8 @@ import './index.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import App from './App';
+import PageIndex from './components/page-index';
+
 import PostPage from './components/PostPage';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
@@ -23,3 +25,10 @@ ReactDOM.render(
 
     </Router>, document.getElementById('root'));
 registerServiceWorker();
+
+
+
+
+
+
+
