@@ -1,8 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 
-import PostsList from './PostList';
-import Pagination  from './Pagination';
+import { PostsList, Pagination } from './';
 
 import fetchJSON from './../helpers/fetch-json';
 import fetchPosts from './../helpers/fetch-posts';
@@ -50,10 +49,5 @@ class PageIndex extends React.Component {
             ]
     }
 }
+
 export default withRouter(PageIndex);
-
-
-
-
-
-

@@ -1,8 +1,8 @@
 import React from 'react';
-import './PostCard.css';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import './post-card.css';
 
 function PostCard(props) {
     return (
@@ -19,8 +19,5 @@ function PostCard(props) {
 PostCard.propTypes = {
     post: PropTypes.object.isRequired
 };
+
 export default PostCard;
-
-
-
-

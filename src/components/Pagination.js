@@ -1,6 +1,7 @@
 import React from 'react';
-import './Pagination.css';
 import { Link } from 'react-router-dom';
+
+import './pagination.css';
 
 export default function Pagination(props) {
     let values = [];

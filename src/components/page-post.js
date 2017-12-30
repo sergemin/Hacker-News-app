@@ -1,9 +1,9 @@
 import React from 'react';
-import './PostPage.css';
 import fetchJSON from './../helpers/fetch-json';
 
+import './page-post.css';
 
-export default class PostPage extends React.Component {
+export default class PagePost extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -35,8 +35,3 @@ export default class PostPage extends React.Component {
         )
     }
 }
-
-
-
-
-
