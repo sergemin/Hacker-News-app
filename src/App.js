@@ -21,13 +21,7 @@ export default class App extends Component {
             <div className="App">
                 <h1 className="section-title">My React app with fake REST API</h1>
                 <div className="container">
-                    <select onChange={this.changeQuantities.bind(this)}>
-                        <option value="10" disabled>choose quantities</option>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                    </select>
-                    <PageIndex postPerPage={this.state.postsPerPage}/>
+                    <PageIndex />
                 </div>
             </div>
         );

@@ -13,12 +13,13 @@ class PageIndex extends React.Component {
         this.state = {
             hnAPI: 'https://hacker-news.firebaseio.com/v0',
             posts: [],
-            allPostsTopStoriesIDs: ''
+            allPostsTopStoriesIDs: '',
+            postPerPage: 10
         }
     }
     componentDidMount() {
         const offset = this.props.match.params.IndexOffset || 1;
-        let postPerPage = this.props.postPerPage;
+        let postPerPage = this.state.postPerPage;
         fetchJSON(`${this.state.hnAPI}/topstories.json`)
             .then(response => {
                 this.setState({
@@ -39,7 +40,7 @@ class PageIndex extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let postPerPage = nextProps.postPerPage;
+        let postPerPage = this.state.postPerPage;
         let allPostIDS = this.state.allPostsTopStoriesIDs;
         let newPage = nextProps.match.params.IndexOffset || 1;
         new Promise(resolve => resolve(allPostIDS))
@@ -58,7 +59,7 @@ class PageIndex extends React.Component {
         return (
             <div>
                 <PostsList posts={this.state.posts} />
-                <Pagination paginationCount={this.state.allPostsTopStoriesIDs.length/this.props.postPerPage}
+                <Pagination paginationCount={this.state.allPostsTopStoriesIDs.length/this.state.postPerPage}
                     offset={this.props.match.params.IndexOffset || 0} />
             </div>
         )
