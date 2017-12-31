@@ -1,9 +1,10 @@
 import React from 'react';
-import './PostPage.css';
-import fetchJSON from './../helpers/fetch-json';
+import { api } from '../helpers';
 
+import './page-post.css';
 
-export default class PostPage extends React.Component {
+// TODO prop-types
+export default class PagePost extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -11,18 +12,14 @@ export default class PostPage extends React.Component {
         }
     }
     componentDidMount() {
-        fetchJSON(`https://hacker-news.firebaseio.com/v0/item/${this.props.match.params.postID}.json`)
-            .then(response => {
-                this.setState({
-                    postInfo: response
-                })
-            })
+        api(`/item/${this.props.match.params.postID}.json`)
+            .then(postInfo => { this.setState({ postInfo }); })
             .catch(error => {
                 console.log('request failed', error)
             });
     }
     render() {
-        let postInfo = this.state.postInfo;
+        const { postInfo } = this.state;
         return (
             <section className="page-section">
                 <div className="container">
@@ -35,8 +32,3 @@ export default class PostPage extends React.Component {
         )
     }
 }
-
-
-
-
-

@@ -7,18 +7,19 @@ function checkStatus(response) {
         throw error
     }
 }
+
 function parseJSON(response) {
     return response.json();
 }
 
 function fetchJSON(url) {
     return fetch(url)
-            .then(checkStatus)
-            .then(parseJSON)
+        .then(checkStatus)
+        .then(parseJSON)
 }
-export default fetchJSON;
 
+const base = 'https://hacker-news.firebaseio.com/v0';
 
+const api = url => fetchJSON(`${base}${url}`);
 
-
-
+export default api;

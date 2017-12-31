@@ -1,10 +1,13 @@
 import React from 'react';
-import './Pagination.css';
 import { Link } from 'react-router-dom';
 
-export default function Pagination(props) {
+import './pagination.css';
+
+// TODO highlight current page
+// TODO prop-types
+const Pagination = ({ paginationCount }) => {
     let values = [];
-    for(let i=0; i<props.paginationCount; i++) {
+    for(let i=0; i<paginationCount; i++) {
         values.push(i+1);
     }
     return (
@@ -17,3 +20,5 @@ export default function Pagination(props) {
         </ul>
     )
 }
+
+export default Pagination;

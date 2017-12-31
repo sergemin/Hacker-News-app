@@ -1,7 +1,8 @@
 import React from 'react';
-import PostCard  from './PostCard';
+import { PostCard } from './';
 
-function PostsList({posts}) {
+// TODO prop-types
+function PostsList({ posts }) {
     return (
         <ul className="block-list">
             {posts.map(post => (

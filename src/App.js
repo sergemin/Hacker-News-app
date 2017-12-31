@@ -1,29 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import { Header, Footer, PageIndex, PagePost } from './components';
+
 import './App.css';
 
-import PageIndex from './components/page-index';
+const App = () => (
+    <div className="App">
+        <h1 className="section-title">Hackernews App</h1>
+        <Router>
+          <div className="container">
+            <Header />
+            <Switch>
+              <Route path="/:IndexOffset?" exact component={PageIndex}/>
+              <Route path="/posts/:postID" component={PagePost}/>
+            </Switch>
+            <Footer />
+          </div>
+        </Router>
+    </div>
+);
 
-export default class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            postsPerPage: 10,
-        };
-    }
-    render() {
-        return (
-            <div className="App">
-                <h1 className="section-title">My React app with fake REST API</h1>
-                <div className="container">
-                    <PageIndex />
-                </div>
-            </div>
-        );
-    }
-}
-
-
-
-
-
-
+export default App
