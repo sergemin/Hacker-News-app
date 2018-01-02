@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import './pagination.css';
 
@@ -20,5 +21,9 @@ const Pagination = ({ paginationCount }) => {
         </ul>
     )
 }
+Pagination.propTypes = {
+    paginationCount: PropTypes.number.isRequired
+};
+
 
 export default Pagination;

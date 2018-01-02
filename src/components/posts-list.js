@@ -1,5 +1,6 @@
 import React from 'react';
 import { PostCard } from './';
+import PropTypes from 'prop-types';
 
 // TODO prop-types
 function PostsList({ posts }) {
@@ -13,4 +14,7 @@ function PostsList({ posts }) {
         </ul>
     )
 }
+PostsList.propTypes = {
+    posts: PropTypes.array.isRequired
+};
 export default PostsList;
