@@ -6,15 +6,16 @@ import './pagination.css';
 
 // TODO highlight current page
 // TODO prop-types
-const Pagination = ({ paginationCount }) => {
+const Pagination = ({ paginationCount, offset }) => {
     let values = [];
     for(let i=0; i<paginationCount; i++) {
         values.push(i+1);
     }
+    console.log(offset);
     return (
         <ul className="pagination">
-            {values.map(item => (
-                <li className="pagination__item" key = {item}>
+            {values.map((item, i) => (
+                <li className={`pagination__item${offset-1 === i ? ' pagination__item-active' : ''}`} key = {item}>
                     <Link className='pagination__link' to={`/${item === 1 ? '' : item}`}>{item}</Link>
                 </li>
             ))}
