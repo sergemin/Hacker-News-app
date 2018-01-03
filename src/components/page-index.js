@@ -61,7 +61,6 @@ class PageIndex extends React.Component {
         this.getFilteredPosts(offset(this.props));
     }
     componentWillReceiveProps(nextProps) {
-        // TODO dont refetch if the page offset didnt change
         if(offset(nextProps) !== offset(this.props)) {
             this.getFilteredPosts(offset(nextProps));
         }
