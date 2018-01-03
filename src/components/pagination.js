@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import './pagination.css';
 
-// TODO prop-types
 const Pagination = ({ paginationCount }) => {
     let values = [];
     for(let i=0; i<paginationCount; i++) {
@@ -23,7 +22,9 @@ const Pagination = ({ paginationCount }) => {
     )
 }
 
+
 Pagination.propTypes = {
+    // TODO it can be only one type, also look up the defaultProps thingy
     paginationCount: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number

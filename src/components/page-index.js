@@ -21,7 +21,7 @@ const fetchPosts = posts => Promise.all(posts.map(fetchPost));
 const postsIds = xs => xs.map(x => x.id).join(',');
 
 const offset = props => props.match.params.IndexOffset || 1;
-// TODO prop-types
+
 class PageIndex extends React.Component {
     constructor(props) {
         super(props);
@@ -84,6 +84,7 @@ class PageIndex extends React.Component {
 }
 
 // TODO this is not legit, you dont have props.IndexOffset, you have something else
+// TODO also it can be only one type, also look up the defaultProps thingy
 PageIndex.propTypes = {
     IndexOffset: PropTypes.oneOfType([
         PropTypes.string,

@@ -3,7 +3,7 @@ import { api } from '../helpers';
 
 import './page-post.css';
 
-// TODO prop-types
+// TODO prop-types, still relevant
 export default class PagePost extends React.Component {
     constructor(props) {
         super(props);
