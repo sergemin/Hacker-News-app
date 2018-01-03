@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 
 import './pagination.css';
 
-// TODO highlight current page
 // TODO prop-types
 const Pagination = ({ paginationCount }) => {
     let values = [];
