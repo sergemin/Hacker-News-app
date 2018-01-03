@@ -84,6 +84,7 @@ class PageIndex extends React.Component {
     }
 }
 
+// TODO this is not legit, you dont have props.IndexOffset, you have something else
 PageIndex.propTypes = {
     IndexOffset: PropTypes.oneOfType([
         PropTypes.string,
