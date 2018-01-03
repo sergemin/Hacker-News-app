@@ -22,7 +22,6 @@ const postsIds = xs => xs.map(x => x.id).join(',');
 
 const offset = props => props.match.params.IndexOffset || 1;
 // TODO prop-types
-// TODO dont re-render if offset havent been changed
 class PageIndex extends React.Component {
     constructor(props) {
         super(props);
