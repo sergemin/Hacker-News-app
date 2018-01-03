@@ -64,6 +64,9 @@ class PageIndex extends React.Component {
             this.getFilteredPosts(offset(nextProps));
         }
     }
+    shouldComponentUpdate(nextProps) {
+        return parseInt(nextProps.match.params.IndexOffset, 10) !== parseInt(this.props.match.params.IndexOffset, 10)
+    }
     render() {
         const { topStoriesIds, postPerPage } = this.state;
         return [
@@ -73,14 +76,16 @@ class PageIndex extends React.Component {
             />,
             <Pagination
                 paginationCount={topStoriesIds.length/postPerPage}
-                offset={offset(this.props)}
                 key={2}
             />
         ];
     }
 }
 PageIndex.propTypes = {
-    IndexOffset: PropTypes.number
+    IndexOffset: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
 };
 
 export default withRouter(PageIndex);

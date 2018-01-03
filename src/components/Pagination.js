@@ -23,8 +23,12 @@ const Pagination = ({ paginationCount }) => {
         </ul>
     )
 }
+
 Pagination.propTypes = {
-    paginationCount: PropTypes.number.isRequired
+    paginationCount: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
 };
 
 
