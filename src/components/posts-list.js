@@ -2,7 +2,6 @@ import React from 'react';
 import { PostCard } from './';
 import PropTypes from 'prop-types';
 
-// TODO prop-types
 function PostsList({ posts }) {
     return (
         <ul className="block-list">

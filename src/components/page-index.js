@@ -17,9 +17,11 @@ const filterPostIdsForCurrentPage = (posts, pageIndex, postsPerPage) => {
 const fetchPost = x => api(`/item/${x}.json`);
 const fetchPosts = posts => Promise.all(posts.map(fetchPost));
 
+// convert array of posts to array of postsids and convert it to a string
+const postsIds = xs => xs.map(x => x.id).join(',');
+
 const offset = props => props.match.params.IndexOffset || 1;
-// TODO prop-types
-// TODO dont re-render if offset havent been changed
+
 class PageIndex extends React.Component {
     constructor(props) {
         super(props);
@@ -51,27 +53,26 @@ class PageIndex extends React.Component {
         ))
         .then(fetchPosts)
         .then(posts => { this.setState({ posts }); })
-          .catch(error => {
-              console.log('request failed', error);
-          });
+        .catch(error => {
+            console.log('request failed', error);
+        });
     }
     componentDidMount() {
         this.getFilteredPosts(offset(this.props));
     }
     componentWillReceiveProps(nextProps) {
-        // TODO dont refetch if the page offset didnt change
-        if(parseInt(nextProps.match.params.IndexOffset, 10) !== parseInt(this.props.match.params.IndexOffset, 10)) {
+        if(offset(nextProps) !== offset(this.props)) {
             this.getFilteredPosts(offset(nextProps));
         }
     }
-    shouldComponentUpdate(nextProps) {
-        return parseInt(nextProps.match.params.IndexOffset, 10) !== parseInt(this.props.match.params.IndexOffset, 10)
+    shouldComponentUpdate(nextProps, nextState) {
+        return postsIds(this.state.posts) !== postsIds(nextState.posts);
     }
     render() {
-        const { topStoriesIds, postPerPage } = this.state;
+        const { topStoriesIds, postPerPage, posts } = this.state;
         return [
             <PostsList
-                posts={this.state.posts}
+                posts={posts}
                 key={1}
             />,
             <Pagination
@@ -81,6 +82,9 @@ class PageIndex extends React.Component {
         ];
     }
 }
+
+// TODO this is not legit, you dont have props.IndexOffset, you have something else
+// TODO also it can be only one type, also look up the defaultProps thingy
 PageIndex.propTypes = {
     IndexOffset: PropTypes.oneOfType([
         PropTypes.string,
