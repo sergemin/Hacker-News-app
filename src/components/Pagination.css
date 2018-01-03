@@ -9,3 +9,6 @@
     display: inline-block;
     padding: 5px;
 }
+.pagination__link-active {
+    background: rgba(255,255,255,.4);
+}

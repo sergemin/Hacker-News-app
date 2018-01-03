@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import PropTypes from 'prop-types';
 
 import { PostsList, Pagination } from './';
 
@@ -30,6 +31,7 @@ class PageIndex extends React.Component {
         this.getTopStories = this.getTopStories.bind(this);
         this.getFilteredPosts = this.getFilteredPosts.bind(this);
     }
+
     getTopStories = () => {
       if (this.state.topStoriesIds.length !== 0) {
         return Promise.resolve(this.state.topStoriesIds);
@@ -58,7 +60,9 @@ class PageIndex extends React.Component {
     }
     componentWillReceiveProps(nextProps) {
         // TODO dont refetch if the page offset didnt change
-        this.getFilteredPosts(offset(nextProps));
+        if(parseInt(nextProps.match.params.IndexOffset, 10) !== parseInt(this.props.match.params.IndexOffset, 10)) {
+            this.getFilteredPosts(offset(nextProps));
+        }
     }
     render() {
         const { topStoriesIds, postPerPage } = this.state;
@@ -75,5 +79,8 @@ class PageIndex extends React.Component {
         ];
     }
 }
+PageIndex.propTypes = {
+    IndexOffset: PropTypes.number
+};
 
 export default withRouter(PageIndex);
