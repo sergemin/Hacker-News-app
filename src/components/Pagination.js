@@ -16,7 +16,7 @@ const Pagination = ({ paginationCount }) => {
             {values.map((item, i) => (
                 <li className='pagination__item' key = {item}>
                     <NavLink className='pagination__link'
-                          activeClassName="pagination__link-active"
+                          activeClassName="pagination__link-active" exact
                           to={`/${item === 1 ? '' : item}`}>{item}</NavLink>
                 </li>
             ))}
