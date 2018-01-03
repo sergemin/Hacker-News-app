@@ -17,6 +17,7 @@ const filterPostIdsForCurrentPage = (posts, pageIndex, postsPerPage) => {
 const fetchPost = x => api(`/item/${x}.json`);
 const fetchPosts = posts => Promise.all(posts.map(fetchPost));
 
+
 const offset = props => props.match.params.IndexOffset || 1;
 // TODO prop-types
 // TODO dont re-render if offset havent been changed
@@ -60,12 +61,12 @@ class PageIndex extends React.Component {
     }
     componentWillReceiveProps(nextProps) {
         // TODO dont refetch if the page offset didnt change
-        if(parseInt(nextProps.match.params.IndexOffset, 10) !== parseInt(this.props.match.params.IndexOffset, 10)) {
+        if(offset(nextProps) !== offset(this.props)) {
             this.getFilteredPosts(offset(nextProps));
         }
     }
     shouldComponentUpdate(nextProps) {
-        return parseInt(nextProps.match.params.IndexOffset, 10) !== parseInt(this.props.match.params.IndexOffset, 10)
+        return offset(nextProps) !== offset(this.props);
     }
     render() {
         const { topStoriesIds, postPerPage } = this.state;
