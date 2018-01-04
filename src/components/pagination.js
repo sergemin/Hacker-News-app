@@ -25,11 +25,10 @@ const Pagination = ({ paginationCount }) => {
 
 Pagination.propTypes = {
     // TODO it can be only one type, also look up the defaultProps thingy
-    paginationCount: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
+    paginationCount: PropTypes.number.isRequired
 };
-
+Pagination.defaultProps = {
+    paginationCount: 10
+};
 
 export default Pagination;
