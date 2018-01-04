@@ -32,7 +32,6 @@ class PageIndex extends React.Component {
         }
         this.getTopStories = this.getTopStories.bind(this);
         this.getFilteredPosts = this.getFilteredPosts.bind(this);
-        this.getProps = this.getProps.bind(this);
     }
     getTopStories = () => {
       if (this.state.topStoriesIds.length !== 0) {
@@ -57,7 +56,6 @@ class PageIndex extends React.Component {
             console.log('request failed', error);
         });
     }
-    getProps = () => this.props;
     componentDidMount() {
         this.getFilteredPosts(offset(this.props));
     }
@@ -83,9 +81,6 @@ class PageIndex extends React.Component {
         ];
     }
 }
-
-// TODO this is not legit, you dont have props.IndexOffset, you have something else
-// TODO also it can be only one type, also look up the defaultProps thingy
 
 PageIndex.propTypes = {
     match: PropTypes.object.isRequired

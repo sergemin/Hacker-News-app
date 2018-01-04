@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { api } from '../helpers';
 
 import './page-post.css';
 
-// TODO prop-types, still relevant
 export default class PagePost extends React.Component {
     constructor(props) {
         super(props);
@@ -32,3 +32,6 @@ export default class PagePost extends React.Component {
         )
     }
 }
+PagePost.propTypes = {
+    match: PropTypes.object.isRequired
+};
