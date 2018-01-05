@@ -28,8 +28,8 @@ export default class PagePost extends React.Component {
             return Promise.resolve(this.state.comments);
         }
         return Promise.resolve(this.state.postInfo.kids)
-            .then(commentsIds => commentsIds.length === 0 ? Promise.reject() : commentsIds)
-            .catch(() => this.setState({comments: 'no comments yet'})) // here I need abort the executing of chain of promises
+            .then(commentsIds => commentsIds.length === 0 ? this.state.comments : commentsIds)
+            .catch(error => console.log('request failed', error)) // here I need abort the executing of chain of promises
             .then(commentsIds => commentsIds.map(item => api(`/item/${item}.json`)))
             .then(comments => Promise.all(comments))
             .then(comments => {
