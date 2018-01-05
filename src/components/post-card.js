@@ -9,6 +9,7 @@ const PostCard = ({ post }) => (
         <Link className='post-item__link' to={`/posts/${post.id}`}>
             <div className="post-item__inner">
                 <h3 className="post-item__title">{post.title}</h3>
+                <p className="post-item__comments">{post.kids ? post.kids.length : 0}</p>
             </div>
         </Link>
     </div>

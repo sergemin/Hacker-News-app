@@ -1,0 +1,17 @@
+.comment {
+    width: 500px;
+    margin: 0 auto;
+}
+.comments__item {
+    list-style: none;
+    margin-bottom: 10px;
+}
+.comments__item:not(:last-child) {
+    border-bottom: 1px solid #fff;
+}
+.comment__text {
+    font-style: italic;
+    font-size: .9rem;
+    text-align: left;
+    word-break: break-all;
+}
