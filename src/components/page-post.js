@@ -24,18 +24,14 @@ export default class PagePost extends React.Component {
 
     }
     getComments = () => {
-        if(this.state.comments.length !==0) {
-            return Promise.resolve(this.state.comments);
+        const commentsIds = this.state.postInfo.kids;
+
+        if (commentsIds && commentsIds.length !== 0) {
+            const fetchComment = x => api(`/item/${x}.json`);
+            Promise.all(commentsIds.map(fetchComment))
+                .then(comments => this.state({ comments }))
+                .catch(error => console.log({ error }))
         }
-        return Promise.resolve(this.state.postInfo.kids)
-            .then(commentsIds => commentsIds.length === 0 ? this.state.comments : commentsIds)
-            .catch(error => console.log('request failed', error)) // here I need abort the executing of chain of promises
-            .then(commentsIds => commentsIds.map(item => api(`/item/${item}.json`)))
-            .then(comments => Promise.all(comments))
-            .then(comments => {
-                this.setState({ comments });
-                return comments;
-            })
     }
     componentDidMount() {
         this.getPostInfo()
