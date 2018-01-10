@@ -16,6 +16,7 @@ export default class PagePost extends React.Component {
         this.getPostInfo = this.getPostInfo.bind(this);
     }
     getPostInfo = () => {
+        
         if(this.state.postInfo.length !==0) {
             return Promise.resolve(this.state.postInfo);
         }
@@ -29,7 +30,7 @@ export default class PagePost extends React.Component {
         if (commentsIds && commentsIds.length !== 0) {
             const fetchComment = x => api(`/item/${x}.json`);
             Promise.all(commentsIds.map(fetchComment))
-                .then(comments => this.state({ comments }))
+                .then(comments => {this.setState({ comments })})
                 .catch(error => console.log({ error }))
         }
     }
@@ -47,7 +48,6 @@ export default class PagePost extends React.Component {
                     <div className="post_description">
                         {postInfo.body}
                     </div>
-                    <h3>Comments</h3>
                     <Comments comments={this.state.comments} />
                 </div>
             </section>
