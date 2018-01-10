@@ -9,15 +9,15 @@ export default class PagePost extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            postInfo: [],
+            postInfo: {},
             comments: []
         }
         this.getComments = this.getComments.bind(this);
         this.getPostInfo = this.getPostInfo.bind(this);
     }
     getPostInfo = () => {
-        
-        if(this.state.postInfo.length !==0) {
+
+        if(Object.keys(this.state.postInfo).length !==0) {
             return Promise.resolve(this.state.postInfo);
         }
         return api(`/item/${this.props.match.params.postID}.json`)
