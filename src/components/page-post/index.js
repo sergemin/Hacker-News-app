@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { api } from '../helpers';
-
-import './page-post.css';
-import Comments from './comments';
+import { api } from './../../helpers';
+import { Comments } from './..';
+import './styles.css';
 
 export default class PagePost extends React.Component {
     constructor(props) {
@@ -11,7 +10,7 @@ export default class PagePost extends React.Component {
         this.state = {
             postInfo: {},
             comments: []
-        }
+        };
         this.getComments = this.getComments.bind(this);
         this.getPostInfo = this.getPostInfo.bind(this);
     }
@@ -23,7 +22,7 @@ export default class PagePost extends React.Component {
         return api(`/item/${this.props.match.params.postID}.json`)
             .then(postInfo => { this.setState({ postInfo }); return postInfo})
 
-    }
+    };
     getComments = () => {
         const commentsIds = this.state.postInfo.kids;
 
@@ -33,7 +32,7 @@ export default class PagePost extends React.Component {
                 .then(comments => {this.setState({ comments })})
                 .catch(error => console.log({ error }))
         }
-    }
+    };
     componentDidMount() {
         this.getPostInfo()
             .then(() => this.getComments())

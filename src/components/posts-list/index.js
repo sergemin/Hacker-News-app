@@ -1,5 +1,5 @@
 import React from 'react';
-import { PostCard } from './';
+import { PostCard } from './..';
 import PropTypes from 'prop-types';
 
 function PostsList({ posts }) {

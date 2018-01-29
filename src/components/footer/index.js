@@ -1,6 +1,5 @@
 import React from 'react';
-
-import './footer.css';
+import './styles.css';
 
 const Footer = () => (
     <footer className="footer">
@@ -19,6 +18,6 @@ const Footer = () => (
             </ul>
         </div>
     </footer>
-)
+);
 
 export default Footer;

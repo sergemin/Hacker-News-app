@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
-import './post-card.css';
+import './styles.css';
 
 const PostCard = ({ post }) => (
     <div className="post-item">

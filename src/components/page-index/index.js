@@ -2,9 +2,9 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 
-import { PostsList, Pagination } from './';
+import { PostsList, Pagination } from './..';
 
-import { api } from './../helpers/';
+import { api } from './../../helpers';
 
 const isWithinLimits = (min, max) => (x, i) => (i >= min && i < max);
 
