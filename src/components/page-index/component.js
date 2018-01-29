@@ -67,7 +67,7 @@ class PageIndex extends React.Component {
     return postsIds(this.state.posts) !== postsIds(nextState.posts);
   }
   render() {
-    const { topStoriesIds, postPerPage, posts } = this.state;
+    const { topStoriesIds, postPerPage, posts } = this.state; //here will be this.props
     return [
       <PostsList
         posts={posts}

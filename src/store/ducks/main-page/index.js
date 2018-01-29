@@ -30,11 +30,10 @@ export const selectors = {
   ...selectorTopStoriesIds.selectors,
   ...selectorPosts.selectors,
   ...selectorPostsPerPage.selectors,
-  root: selectorRoot,
   topStoriesIds: selectorTopStoriesIds,
   posts: selectorPosts,
   postsPerPage: selectorPostsPerPage,
-
+  root: selectorRoot,
 };
 
 export const rootReducer =  combineReducers({

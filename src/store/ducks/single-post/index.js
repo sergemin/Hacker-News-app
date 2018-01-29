@@ -25,9 +25,9 @@ const selectorPostInfo = state => postInfoDuck.selectors.root(selectorRoot(state
 export const selectors = {
   ...selectorComments.selectors,
   ...selectorPostInfo.selectors,
-  root: selectorRoot,
   comments: selectorComments,
   postInfo: selectorPostInfo,
+  root: selectorRoot,
 };
 
 export const rootReducer =  combineReducers({
