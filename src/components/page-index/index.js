@@ -11,7 +11,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispathToProps = {
-  onFetchPosts: 'fetch'
+  onFetchId: mainPageDuck.actions.fetchIds,
+  onFetchPosts: mainPageDuck.actions.fetchPosts,
+  onChangePostsPerPage: mainPageDuck.actions.changePostsPerPage,
 };
 
 export default withRouter(
