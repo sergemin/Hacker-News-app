@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 import { withRouter } from 'react-router';
 import PageIndex from './component';
 import { mainPageDuck } from './../../store/ducks';
@@ -11,12 +12,14 @@ const mapStateToProps = state => ({
 });
 
 const mapDispathToProps = {
-  onFetchId: mainPageDuck.actions.fetchIds,
-  onFetchPosts: mainPageDuck.actions.fetchPosts,
-  onChangePostsPerPage: mainPageDuck.actions.changePostsPerPage,
+  fetchIds: mainPageDuck.actions.fetchIds,
+  fetchPosts: mainPageDuck.actions.fetchPosts,
+  changePostsPerPage: mainPageDuck.actions.changePostsPerPage,
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispathToProps)(PageIndex));
+const enhance = compose(
+  withRouter,
+  connect(mapStateToProps, mapDispathToProps),
+);
+
+export default enhance(PageIndex);

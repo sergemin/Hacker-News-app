@@ -27,8 +27,8 @@ class PageIndex extends React.Component {
     this.state = {
       posts: [],
       topStoriesIds: [],
-      postPerPage: 10
-    }
+      postsPerPage: 10,
+    };
     this.getTopStories = this.getTopStories.bind(this);
     this.getFilteredPosts = this.getFilteredPosts.bind(this);
   }
@@ -67,14 +67,15 @@ class PageIndex extends React.Component {
     return postsIds(this.state.posts) !== postsIds(nextState.posts);
   }
   render() {
-    const { topStoriesIds, postPerPage, posts } = this.state; //here will be this.props
+    const { topStoriesIds, postsPerPage, posts } = this.state; //here will be this.props
+    //console.log(this.props);
     return [
       <PostsList
         posts={posts}
         key={1}
       />,
       <Pagination
-        paginationCount={topStoriesIds.length/postPerPage}
+        paginationCount={topStoriesIds.length/postsPerPage}
         key={2}
       />
     ];
@@ -82,7 +83,10 @@ class PageIndex extends React.Component {
 }
 
 PageIndex.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  posts: PropTypes.array.isRequired,
+  topStoriesIds: PropTypes.array.isRequired,
+  postsPerPage: PropTypes.string.isRequired,
 };
 
 export default PageIndex;
