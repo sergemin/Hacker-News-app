@@ -6,13 +6,15 @@ const defaultState = [];
 const shape = PropTypes.array;
 
 const types = {
-  FETCH_COMMENTS: `${NS}/FETCH_COMMENTS`,
+  SETT: `${NS}/SETT`,
+  SUCC: `${NS}/SUCC`,
+  FAIL: `${NS}/FAIL`,
 };
 
-const fetchComments = comments => ({ type: types.FETCH_COMMENTS, payload: comments }); //middleware is needed
+const setComments = comments => ({ type: types.SETT, payload: comments }); //middleware is needed
 
 export const actions = {
-  fetchComments,
+  setComments,
 };
 
 const selectorRoot = state => state[NS] || defaultState;
@@ -23,7 +25,9 @@ export const selectors = {
 
 const reducer = (state = defaultState, { type, payload }) => {
   switch (type) {
-    case types.FETCH_COMMENTS :
+    case types.SETT :
+    case types.SUCC :
+    case types.FAIL :
       return payload;
     default:
       return state;

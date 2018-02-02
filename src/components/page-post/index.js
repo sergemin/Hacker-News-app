@@ -8,8 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispathToProps = {
-  onFetchInfo: singlePostDuck.actions.fetchInfo,
-  onFetchComments: singlePostDuck.actions.fetchComments,
+  setInfo: singlePostDuck.actions.setInfo,
+  setComments: singlePostDuck.actions.setComments,
 };
 
 export default connect(

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import PageIndex from './component';
 import { mainPageDuck } from './../../store/ducks';
 
@@ -12,8 +12,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispathToProps = {
-  fetchIds: mainPageDuck.actions.fetchIds,
-  fetchPosts: mainPageDuck.actions.fetchPosts,
+  setTopStoriesIds: mainPageDuck.actions.setTopStoriesIds,
+  setPagePosts: mainPageDuck.actions.setPagePosts,
   changePostsPerPage: mainPageDuck.actions.changePostsPerPage,
 };
 

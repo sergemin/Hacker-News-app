@@ -6,10 +6,10 @@ const defaultState = '10';
 const shape = PropTypes.string;
 
 const types = {
-  CHANGE_POSTS_PER_PAGE: `${NS}/CHANGE_POSTS_PER_PAGE`,
+  CHANGE: `${NS}/CHANGE`,
 };
 
-const changePostsPerPage = count => ({ type: types.CHANGE_POSTS_PER_PAGE, payload: count }); //middleware is needed
+const changePostsPerPage = count => ({ type: types.CHANGE, payload: count }); //middleware is needed
 
 export const actions = {
   changePostsPerPage,
@@ -23,7 +23,7 @@ export const selectors = {
 
 const reducer = (state = defaultState, { type, payload }) => {
   switch (type) {
-    case types.CHANGE_POSTS_PER_PAGE :
+    case types.CHANGE :
       return payload;
     default:
       return state;

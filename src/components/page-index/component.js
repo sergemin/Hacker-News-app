@@ -11,7 +11,7 @@ const filterPostIdsForCurrentPage = (posts, pageIndex, postsPerPage) => {
   const minLimit = postsPerPage * (pageIndex - 1);
   const maxLimit = postsPerPage * pageIndex;
   return posts.filter(isWithinLimits(minLimit, maxLimit))
-}
+};
 
 const fetchPost = x => api(`/item/${x}.json`);
 const fetchPosts = posts => Promise.all(posts.map(fetchPost));
@@ -24,21 +24,16 @@ const offset = props => props.match.params.IndexOffset || 1;
 class PageIndex extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      posts: [],
-      topStoriesIds: [],
-      postsPerPage: 10,
-    };
     this.getTopStories = this.getTopStories.bind(this);
     this.getFilteredPosts = this.getFilteredPosts.bind(this);
   }
   getTopStories = () => {
-    if (this.state.topStoriesIds.length !== 0) {
-      return Promise.resolve(this.state.topStoriesIds);
+    if (this.props.topStoriesIds.length !== 0) {
+      return Promise.resolve(this.props.topStoriesIds);
     }
     return api('/topstories.json')
       .then(topStoriesIds => {
-        this.setState({ topStoriesIds });
+        this.props.setTopStoriesIds(topStoriesIds);
         return topStoriesIds;
       });
   };
@@ -47,10 +42,12 @@ class PageIndex extends React.Component {
       .then(topStoriesIds => filterPostIdsForCurrentPage(
         topStoriesIds,
         offset,
-        this.state.postPerPage
+        this.props.postsPerPage
       ))
       .then(fetchPosts)
-      .then(posts => { this.setState({ posts }); })
+      .then(posts => {
+        this.props.setPagePosts(posts);
+      })
       .catch(error => {
         console.log('request failed', error);
       });
@@ -63,12 +60,11 @@ class PageIndex extends React.Component {
       this.getFilteredPosts(offset(nextProps));
     }
   }
-  shouldComponentUpdate(nextProps, nextState) {
-    return postsIds(this.state.posts) !== postsIds(nextState.posts);
+  shouldComponentUpdate(nextProps) {
+    return postsIds(this.props.posts) !== postsIds(nextProps.posts);
   }
   render() {
-    const { topStoriesIds, postsPerPage, posts } = this.state; //here will be this.props
-    //console.log(this.props);
+    const { topStoriesIds, postsPerPage, posts } = this.props;
     return [
       <PostsList
         posts={posts}

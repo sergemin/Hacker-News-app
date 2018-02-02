@@ -6,13 +6,15 @@ const defaultState = [];
 const shape = PropTypes.array;
 
 const types = {
-  FETCH_POSTS: `${NS}/FETCH_POSTS`,
-};
+  SETT: `${NS}/SETT`,
+  SUCC: `${NS}/SUCC`,
+  FAIL: `${NS}/FAIL`,
+}
 
-const fetchPosts = posts => ({ type: types.FETCH_POSTS, payload: posts }); //middleware is needed
+const setPagePosts = posts => ({ type: types.SETT, payload: posts });
 
 export const actions = {
-  fetchPosts,
+  setPagePosts,
 };
 
 const selectorRoot = state => state[NS] || defaultState;
@@ -23,7 +25,9 @@ export const selectors = {
 
 const reducer = (state = defaultState, { type, payload }) => {
   switch (type) {
-    case types.FETCH_POSTS :
+    case types.SETT :
+    case types.SUCC :
+    case types.FAIL :
       return payload;
     default:
       return state;

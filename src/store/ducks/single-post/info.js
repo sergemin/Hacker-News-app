@@ -6,13 +6,15 @@ const defaultState = {};
 const shape = PropTypes.object;
 
 const types = {
-  FETCH_INFO: `${NS}/FETCH_INFO`,
+  SETT: `${NS}/SETT`,
+  SUCC: `${NS}/SUCC`,
+  FAIL: `${NS}/FAIL`,
 };
 
-const fetchInfo = info => ({ type: types.FETCH_INFO, payload: info }); //middleware is needed
+const setInfo = info => ({ type: types.SETT, payload: info }); //middleware is needed
 
 export const actions = {
-  fetchInfo,
+  setInfo,
 };
 
 const selectorRoot = state => state[NS] || defaultState;
@@ -23,7 +25,9 @@ export const selectors = {
 
 const reducer = (state = defaultState, { type, payload }) => {
   switch (type) {
-    case types.FETCH_INFO :
+    case types.SETT :
+    case types.SUCC :
+    case types.FAIL :
       return payload;
     default:
       return state;

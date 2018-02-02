@@ -7,29 +7,29 @@ import './styles.css';
 export default class PagePost extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      postInfo: {},
-      comments: []
-    };
     this.getComments = this.getComments.bind(this);
     this.getPostInfo = this.getPostInfo.bind(this);
   }
   getPostInfo = () => {
 
-    if(Object.keys(this.state.postInfo).length !==0) {
-      return Promise.resolve(this.state.postInfo);
+    if(Object.keys(this.props.postInfo).length !==0) {
+      return Promise.resolve(this.props.postInfo);
     }
     return api(`/item/${this.props.match.params.postID}.json`)
-      .then(postInfo => { this.setState({ postInfo }); return postInfo})
+      .then(postInfo => {
+        this.props.setInfo(postInfo);
+        return postInfo})
 
   };
   getComments = () => {
-    const commentsIds = this.state.postInfo.kids;
+    const commentsIds = this.props.postInfo.kids;
 
     if (commentsIds && commentsIds.length !== 0) {
       const fetchComment = x => api(`/item/${x}.json`);
       Promise.all(commentsIds.map(fetchComment))
-        .then(comments => {this.setState({ comments })})
+        .then(comments => {
+          this.props.setComments(comments);
+        })
         .catch(error => console.log({ error }))
     }
   };
@@ -39,7 +39,7 @@ export default class PagePost extends React.Component {
       .catch(error => console.log('request failed', error));
   }
   render() {
-    const { postInfo } = this.state;
+    const { postInfo, comments } = this.props;
     return (
       <section className="page-section">
         <div className="container">
@@ -47,12 +47,14 @@ export default class PagePost extends React.Component {
           <div className="post_description">
             {postInfo.body}
           </div>
-          <Comments comments={this.state.comments} />
+          <Comments comments={comments} />
         </div>
       </section>
     )
   }
 }
 PagePost.propTypes = {
-  match: PropTypes.object.isRequired
+  match: PropTypes.object.isRequired,
+  postInfo: PropTypes.object.isRequired,
+  comments: PropTypes.array.isRequired,
 };
