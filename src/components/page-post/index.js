@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
 import PagePost from './component';
-import { singlePostDuck } from './../../store/ducks';
+import { infoPostDuck, commentsDuck } from './../../store/ducks';
 
 const mapStateToProps = state => ({
-  postInfo: singlePostDuck.selectors.postInfo(state),
-  comments: singlePostDuck.selectors.comments(state),
+  postInfo: infoPostDuck.selectors.root(state),
+  comments: commentsDuck.selectors.root(state),
 });
 
 const mapDispathToProps = {
-  setInfo: singlePostDuck.actions.setInfo,
-  setComments: singlePostDuck.actions.setComments,
+  setInfo: infoPostDuck.actions.setInfo,
+  fetchComments: commentsDuck.actions.fetchComments,
 };
 
 export default connect(

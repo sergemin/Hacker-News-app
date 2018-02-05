@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const NS = 'topStoriesIds';
+export const NS = 'pagePosts';
 
 const defaultState = [];
 const shape = PropTypes.array;
@@ -9,18 +9,18 @@ const types = {
   SETT: `${NS}/SETT`,
   SUCC: `${NS}/SUCC`,
   FAIL: `${NS}/FAIL`,
-};
+}
 
-const setTopStoriesIds = ids => ({ type: types.SETT, payload: ids });
+const setPagePosts = posts => ({ type: types.SETT, payload: posts });
 
 export const actions = {
-  setTopStoriesIds,
+  setPagePosts,
 };
 
-const selectorRoot = state => state[NS] || defaultState;
+const root = state => state[NS] || defaultState;
 
 export const selectors = {
-  root: selectorRoot,
+  root,
 };
 
 const reducer = (state = defaultState, { type, payload }) => {

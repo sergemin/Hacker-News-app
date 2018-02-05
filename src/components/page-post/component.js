@@ -25,13 +25,8 @@ export default class PagePost extends React.Component {
     const commentsIds = this.props.postInfo.kids;
 
     if (commentsIds && commentsIds.length !== 0) {
-      const fetchComment = x => api(`/item/${x}.json`);
-      Promise.all(commentsIds.map(fetchComment))
-        .then(comments => {
-          this.props.setComments(comments);
-        })
-        .catch(error => console.log({ error }))
-    }
+      this.props.fetchComments(commentsIds);
+    };
   };
   componentDidMount() {
     this.getPostInfo()
@@ -56,5 +51,5 @@ export default class PagePost extends React.Component {
 PagePost.propTypes = {
   match: PropTypes.object.isRequired,
   postInfo: PropTypes.object.isRequired,
-  comments: PropTypes.array.isRequired,
+  comments: PropTypes.object.isRequired,
 };

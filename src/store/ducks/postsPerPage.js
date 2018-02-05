@@ -15,10 +15,10 @@ export const actions = {
   changePostsPerPage,
 };
 
-const selectorRoot = state => state[NS] || defaultState;
+const root = state => state[NS] || defaultState;
 
 export const selectors = {
-  root: selectorRoot,
+  root,
 };
 
 const reducer = (state = defaultState, { type, payload }) => {

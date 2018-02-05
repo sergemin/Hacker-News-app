@@ -9,8 +9,11 @@ import * as ducks from './store/ducks';
 import './index.css';
 
 export const reducer =  combineReducers({
-  ...ducks.mainPageDuck.reducer,
-  ...ducks.singlePostDuck.reducer,
+  ...ducks.commentsDuck.reducer,
+  ...ducks.infoPostDuck.reducer,
+  ...ducks.postsDuck.reducer,
+  ...ducks.postsPerPageDuck.reducer,
+  ...ducks.topStoriedIdsDuck.reducer,
 });
 
 const store = createStore(reducer, composeWithDevTools());

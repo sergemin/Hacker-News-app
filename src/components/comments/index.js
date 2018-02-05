@@ -3,21 +3,22 @@ import './styles.css';
 import PropTypes from 'prop-types';
 
 
-function Comments({ comments }) {
+const Comments = ({ comments }) => {
   if(comments.length === 0) {
     return <div className="comments__zero comment">no comments yet</div>
   }
+  console.log(comments);
     return [
         <h3 key="0">Comments</h3>,
         <ul key="1">
-          {comments.map(item => (
+          {comments.items.map(item => (
              <li className="comments__item comment" key={item.id}>
                   <p className="comment__text">{item.text}</p>
             </li>
           ))}</ul>
     ]
-}
+};
 Comments.propTypes = {
-    comments: PropTypes.array,
+    comments: PropTypes.object,
 };
 export default Comments;

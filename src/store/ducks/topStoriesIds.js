@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types';
 
-export const NS = 'postInfo';
+export const NS = 'topStoriesIds';
 
-const defaultState = {};
-const shape = PropTypes.object;
+const defaultState = {
+  isLoading: false,
+  error: null,
+  items: [],
+};
+const shape = PropTypes.array;
 
 const types = {
   SETT: `${NS}/SETT`,
@@ -11,16 +15,16 @@ const types = {
   FAIL: `${NS}/FAIL`,
 };
 
-const setInfo = info => ({ type: types.SETT, payload: info }); //middleware is needed
+const setTopStoriesIds = ids => ({ type: types.SETT, payload: ids });
 
 export const actions = {
-  setInfo,
+  setTopStoriesIds,
 };
 
-const selectorRoot = state => state[NS] || defaultState;
+const root = state => state[NS] || defaultState;
 
 export const selectors = {
-  root: selectorRoot,
+  root,
 };
 
 const reducer = (state = defaultState, { type, payload }) => {
