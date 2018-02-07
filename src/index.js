@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 import App from './App';
 import * as ducks from './store/ducks';
 import './index.css';
@@ -13,10 +14,21 @@ export const reducer =  combineReducers({
   ...ducks.infoPostDuck.reducer,
   ...ducks.postsDuck.reducer,
   ...ducks.postsPerPageDuck.reducer,
-  ...ducks.topStoriedIdsDuck.reducer,
+  ...ducks.topStoriesIdsDuck.reducer,
 });
 
-const store = createStore(reducer, composeWithDevTools());
+const middleware = [
+  thunk,
+];
+
+const store = createStore(
+  reducer,
+  composeWithDevTools(
+    applyMiddleware(
+      ...middleware
+    )
+  )
+);
 
 ReactDOM.render(
   <Provider store={store}>

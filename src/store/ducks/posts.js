@@ -1,34 +1,75 @@
 import PropTypes from 'prop-types';
+import { api } from './../../helpers';
 
 export const NS = 'pagePosts';
 
-const defaultState = [];
-const shape = PropTypes.array;
+export const defaultState = {
+  isLoading: false,
+  error: null,
+  items: [],
+};
+const shape = PropTypes.object.isRequired;
 
 const types = {
-  SETT: `${NS}/SETT`,
+  GETT: `${NS}/GETT`,
   SUCC: `${NS}/SUCC`,
   FAIL: `${NS}/FAIL`,
-}
-
-const setPagePosts = posts => ({ type: types.SETT, payload: posts });
-
-export const actions = {
-  setPagePosts,
 };
 
 const root = state => state[NS] || defaultState;
+const isLoading = state => root(state).isLoading;
+const error = state => root(state).error;
+const items = state => root(state).items;
 
-export const selectors = {
-  root,
+export const selectors = { root, isLoading, error, items };
+
+const gett = () => ({ type: types.GETT });
+const succ = payload => ({ type: types.SUCC, payload });
+const fail = payload => ({ type: types.FAIL, payload });
+
+//helpers
+
+const isWithinLimits = (min, max) => (x, i) => (i >= min && i < max);
+
+const filterPostIdsForCurrentPage = (posts, pageIndex, postsPerPage) => {
+  const minLimit = postsPerPage * (pageIndex - 1);
+  const maxLimit = postsPerPage * pageIndex;
+  return posts.filter(isWithinLimits(minLimit, maxLimit))
+};
+
+const fetchPost = x => api(`/item/${x}.json`);
+const fetchPosts = posts => Promise.all(posts.map(fetchPost));
+
+const fetchFilteredPosts = (offset, topStoriesIds, postsPerPage) => (dispatch, getState) =>  {
+  if (selectors.items(getState()).length !== 0) {
+    return Promise.resolve(selectors.items(getState()));
+  }
+  dispatch(gett());
+
+  return Promise.resolve({offset, topStoriesIds, postsPerPage})
+    .then(({topStoriesIds, offset, postsPerPage}) =>
+      filterPostIdsForCurrentPage(
+          topStoriesIds,
+          offset,
+          postsPerPage)
+    )
+    .then(filteredPostsIds => fetchPosts(filteredPostsIds))
+    .then(filteredPosts => dispatch(succ(filteredPosts)))
+    .catch(error => dispatch(fail(error)));
+};
+
+export const actions = {
+  fetchFilteredPosts,
 };
 
 const reducer = (state = defaultState, { type, payload }) => {
   switch (type) {
-    case types.SETT :
+    case types.GETT :
+      return { ...state, isLoading: true };
     case types.SUCC :
+      return { ...state, isLoading: false, items: payload };
     case types.FAIL :
-      return payload;
+      return { ...state, isLoading: false, items: [], error: payload };
     default:
       return state;
   }

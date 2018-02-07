@@ -2,24 +2,23 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import PageIndex from './component';
-import { postsPerPageDuck, topStoriedIdsDuck, postsDuck } from './../../store/ducks';
+import { postsPerPageDuck, topStoriesIdsDuck, postsDuck } from './../../store/ducks';
 
 
 const mapStateToProps = state => ({
-  topStoriesIds: topStoriedIdsDuck.selectors.root(state),
-  posts: postsDuck.selectors.root(state),
+  topStoriesIds: topStoriesIdsDuck.selectors.items(state),
+  posts: postsDuck.selectors.items(state),
   postsPerPage: postsPerPageDuck.selectors.root(state),
 });
 
-const mapDispathToProps = {
-  setTopStoriesIds: topStoriedIdsDuck.actions.setTopStoriesIds,
-  setPagePosts: postsDuck.actions.setPagePosts,
-  changePostsPerPage: postsPerPageDuck.actions.changePostsPerPage,
+const mapDispatchToProps = {
+  fetchPostsIds: topStoriesIdsDuck.actions.fetchPostsIds,
+  fetchFilteredPosts: postsDuck.actions.fetchFilteredPosts,
 };
 
 const enhance = compose(
   withRouter,
-  connect(mapStateToProps, mapDispathToProps),
+  connect(mapStateToProps, mapDispatchToProps),
 );
 
 export default enhance(PageIndex);
