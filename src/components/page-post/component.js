@@ -1,37 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { api } from './../../helpers';
-import { Comments } from './..';
+import { Comments } from '..';
 import './styles.css';
 
 export default class PagePost extends React.Component {
-  constructor(props) {
-    super(props);
-    this.getComments = this.getComments.bind(this);
-    this.getPostInfo = this.getPostInfo.bind(this);
-  }
-  getPostInfo = () => {
-
-    if(Object.keys(this.props.postInfo).length !==0) {
-      return Promise.resolve(this.props.postInfo);
-    }
-    return api(`/item/${this.props.match.params.postID}.json`)
-      .then(postInfo => {
-        this.props.setInfo(postInfo);
-        return postInfo})
-
-  };
-  getComments = () => {
-    const commentsIds = this.props.postInfo.kids;
-
-    if (commentsIds && commentsIds.length !== 0) {
-      this.props.fetchComments(commentsIds);
-    };
-  };
   componentDidMount() {
-    this.getPostInfo()
-      .then(() => this.getComments())
-      .catch(error => console.log('request failed', error));
+    this.props.fetchInfo(this.props.match.params.postID)
+      .then(({kids}) => this.props.fetchComments(kids))
   }
   render() {
     const { postInfo, comments } = this.props;

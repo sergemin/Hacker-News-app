@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { api } from '../../helpers';
 
 export const NS = 'postInfo';
 
@@ -27,10 +28,10 @@ const succ = payload => ({ type: types.SUCC, payload });
 const fail = payload => ({ type: types.FAIL, payload });
 
 const fetchInfo = idPost => (dispatch, getState) => {
-  if (selectors.items(getState()).length !== 0) {
-    return selectors.items(getState());
-  }
   dispatch(gett());
+  return api(`/item/${idPost}.json`)
+    .then(info => { dispatch(succ(info)); return info })
+    .catch(error => { dispatch(fail(error)); return selectors.error(getState())});
 };
 
 export const actions = {
@@ -41,23 +42,11 @@ export const actions = {
 const reducer = (state = defaultState, { type, payload }) => {
   switch (type) {
     case types.GETT :
-      return {
-        ...state,
-        isLoading: true,
-      };
+      return { ...state, isLoading: true };
     case types.SUCC :
-      return {
-        ...state,
-        isLoading: false,
-        info: payload,
-      };
+      return { ...state, isLoading: false, info: payload };
     case types.FAIL :
-      return {
-        ...state,
-        isLoading: false,
-        info: {},
-        error: payload,
-      };
+      return { ...state, isLoading: false, info: {}, error: payload };
     default:
       return state;
   }

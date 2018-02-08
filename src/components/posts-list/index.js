@@ -1,6 +1,6 @@
 import React from 'react';
-import { PostCard } from './..';
 import PropTypes from 'prop-types';
+import { PostCard } from './..';
 
 function PostsList({ posts }) {
     return (
@@ -16,4 +16,5 @@ function PostsList({ posts }) {
 PostsList.propTypes = {
     posts: PropTypes.array.isRequired
 };
+
 export default PostsList;

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {api} from "../../helpers";
+import { api } from "../../helpers";
 
 export const NS = 'topStoriesIds';
 
@@ -33,14 +33,8 @@ const fetchPostsIds = () => (dispatch, getState) => {
   }
   dispatch(gett());
   return api('/topstories.json')
-    .then(topStoriesIds => {
-      dispatch(succ(topStoriesIds));
-      return topStoriesIds;
-    })
-    .catch(error => {
-      dispatch(fail(error.toString()));
-      return selectors.error(getState());
-    });
+    .then(topStoriesIds => { dispatch(succ(topStoriesIds)); return topStoriesIds; })
+    .catch(error => {dispatch(fail(error.toString())); return selectors.error(getState()); });
 };
 
 export const actions = {
@@ -50,23 +44,11 @@ export const actions = {
 const reducer = (state = defaultState, { type, payload }) => {
   switch (type) {
     case types.GETT :
-      return {
-        ...state,
-        isLoading: true,
-      };
+      return { ...state, isLoading: true };
     case types.SUCC :
-      return {
-        ...state,
-        isLoading: false,
-        items: payload,
-      };
+      return { ...state, isLoading: false, items: payload };
     case types.FAIL :
-      return {
-        ...state,
-        isLoading: false,
-        items: [],
-        error: payload,
-      };
+      return { ...state, isLoading: false, items: [], error: payload };
     default:
       return state;
   }

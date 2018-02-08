@@ -1,6 +1,18 @@
 import PropTypes from 'prop-types';
 import { api } from './../../helpers';
 
+const isWithinLimits = (min, max) => (x, i) => (i >= min && i < max);
+
+const filterPostIdsForCurrentPage = (posts, pageIndex, postsPerPage) => {
+  const minLimit = postsPerPage * (pageIndex - 1);
+  const maxLimit = postsPerPage * pageIndex;
+  return posts.filter(isWithinLimits(minLimit, maxLimit))
+};
+
+const fetchPost = x => api(`/item/${x}.json`);
+const fetchPosts = posts => Promise.all(posts.map(fetchPost));
+
+
 export const NS = 'pagePosts';
 
 export const defaultState = {
@@ -27,23 +39,7 @@ const gett = () => ({ type: types.GETT });
 const succ = payload => ({ type: types.SUCC, payload });
 const fail = payload => ({ type: types.FAIL, payload });
 
-//helpers
-
-const isWithinLimits = (min, max) => (x, i) => (i >= min && i < max);
-
-const filterPostIdsForCurrentPage = (posts, pageIndex, postsPerPage) => {
-  const minLimit = postsPerPage * (pageIndex - 1);
-  const maxLimit = postsPerPage * pageIndex;
-  return posts.filter(isWithinLimits(minLimit, maxLimit))
-};
-
-const fetchPost = x => api(`/item/${x}.json`);
-const fetchPosts = posts => Promise.all(posts.map(fetchPost));
-
 const fetchFilteredPosts = (offset, topStoriesIds, postsPerPage) => (dispatch, getState) =>  {
-  if (selectors.items(getState()).length !== 0) {
-    return Promise.resolve(selectors.items(getState()));
-  }
   dispatch(gett());
 
   return Promise.resolve({offset, topStoriesIds, postsPerPage})
@@ -54,8 +50,8 @@ const fetchFilteredPosts = (offset, topStoriesIds, postsPerPage) => (dispatch, g
           postsPerPage)
     )
     .then(filteredPostsIds => fetchPosts(filteredPostsIds))
-    .then(filteredPosts => dispatch(succ(filteredPosts)))
-    .catch(error => dispatch(fail(error)));
+    .then(filteredPosts => { dispatch(succ(filteredPosts)); return filteredPosts; })
+    .catch(error => { dispatch(fail(error)); return selectors.error(getState())});
 };
 
 export const actions = {

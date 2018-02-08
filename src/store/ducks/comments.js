@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import { api } from '../../helpers/index';
 
+const fetchComment = x => api(`/item/${x}.json`);
+
 export const NS = 'comments';
 
 export const defaultState = {
@@ -28,12 +30,7 @@ const succ = payload => ({ type: types.SUCC, payload });
 const fail = payload => ({ type: types.FAIL, payload });
 
 const fetchComments = commentsIds => (dispatch, getState) => {
-  if (selectors.items(getState()).length !== 0) {
-    return selectors.items(getState());
-  }
   dispatch(gett());
-
-  const fetchComment = x => api(`/item/${x}.json`);
 
   Promise.all(commentsIds.map(fetchComment))
     .then(comments => {
@@ -53,23 +50,11 @@ export const actions = {
 const reducer = (state = defaultState, { type, payload }) => {
   switch (type) {
     case types.GETT :
-      return {
-        ...state,
-        isLoading: true,
-      };
+      return { ...state, isLoading: true };
     case types.SUCC :
-      return {
-        ...state,
-        isLoading: false,
-        items: payload,
-      };
+      return { ...state, isLoading: false, items: payload };
     case types.FAIL :
-      return {
-        ...state,
-        isLoading: false,
-        items: [],
-        error: payload,
-      };
+      return { ...state, isLoading: false, items: [], error: payload };
     default:
       return state;
   }

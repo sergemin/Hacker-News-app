@@ -3,15 +3,15 @@ import PagePost from './component';
 import { infoPostDuck, commentsDuck } from './../../store/ducks';
 
 const mapStateToProps = state => ({
-  postInfo: infoPostDuck.selectors.root(state),
+  postInfo: infoPostDuck.selectors.info(state),
   comments: commentsDuck.selectors.root(state),
 });
 
-const mapDispathToProps = {
-  setInfo: infoPostDuck.actions.setInfo,
+const mapDispatchToProps = {
+  fetchInfo: infoPostDuck.actions.fetchInfo,
   fetchComments: commentsDuck.actions.fetchComments,
 };
 
 export default connect(
     mapStateToProps,
-    mapDispathToProps)(PagePost);
+    mapDispatchToProps)(PagePost);

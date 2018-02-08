@@ -1,13 +1,11 @@
 import React from 'react';
-import './styles.css';
 import PropTypes from 'prop-types';
-
+import './styles.css';
 
 const Comments = ({ comments }) => {
   if(comments.length === 0) {
     return <div className="comments__zero comment">no comments yet</div>
   }
-  console.log(comments);
     return [
         <h3 key="0">Comments</h3>,
         <ul key="1">
@@ -21,4 +19,5 @@ const Comments = ({ comments }) => {
 Comments.propTypes = {
     comments: PropTypes.object,
 };
+
 export default Comments;
