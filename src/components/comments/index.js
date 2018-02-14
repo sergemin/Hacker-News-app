@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './styles.css';
 
 const Comments = ({ comments }) => {
-  if(comments.length === 0) {
+  if(comments.items.length === 0) {
     return <div className="comments__zero comment">no comments yet</div>
   }
     return [
