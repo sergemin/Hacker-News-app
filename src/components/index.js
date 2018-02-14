@@ -6,3 +6,4 @@ export { default as PostsList } from './posts-list';
 export { default as PagePost } from './page-post';
 export { default as PageIndex } from './page-index';
 export { default as Comments } from './comments';
+export { default as Spinner } from './spinner';

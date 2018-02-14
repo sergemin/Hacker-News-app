@@ -1,6 +1,7 @@
 header {
     padding: 15px 0;
     background: #118C8B;
+    color: #000D29;
 }
 .header-block {
     display: flex;

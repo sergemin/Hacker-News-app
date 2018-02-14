@@ -14,6 +14,7 @@ const types = {
   GETT: `${NS}/GETT`,
   SUCC: `${NS}/SUCC`,
   FAIL: `${NS}/FAIL`,
+  CLEAR: `${NS}/CLEAR`,
 };
 
 const root = state => state[NS] || defaultState;
@@ -26,6 +27,7 @@ export const selectors = { root, isLoading, error, info };
 const gett = () => ({ type: types.GETT });
 const succ = payload => ({ type: types.SUCC, payload });
 const fail = payload => ({ type: types.FAIL, payload });
+const clear = { type: types.CLEAR };
 
 const fetchInfo = idPost => (dispatch, getState) => {
   dispatch(gett());
@@ -33,9 +35,12 @@ const fetchInfo = idPost => (dispatch, getState) => {
     .then(info => { dispatch(succ(info)); return info })
     .catch(error => { dispatch(fail(error)); return selectors.error(getState())});
 };
+const clearInfo = () => dispatch => {
+  dispatch(clear);
+};
 
 export const actions = {
-  fetchInfo,
+  fetchInfo, clearInfo
 };
 
 
@@ -47,6 +52,8 @@ const reducer = (state = defaultState, { type, payload }) => {
       return { ...state, isLoading: false, info: payload };
     case types.FAIL :
       return { ...state, isLoading: false, info: {}, error: payload };
+    case types.CLEAR :
+      return { ...state, isLoading: false, info: {} };
     default:
       return state;
   }

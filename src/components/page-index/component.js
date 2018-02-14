@@ -8,6 +8,7 @@ const postsIds = xs => xs.map(x => x.id).join(',');
 
 class PageIndex extends React.Component {
   componentDidMount() {
+    this.props.showSpinner();
     this.props.fetchPostsIds()
       .then(postsStoriesIds => this.props.fetchFilteredPosts(
         offset(this.props),

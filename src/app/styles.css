@@ -13,6 +13,11 @@
   margin: 0 auto;
 }
 
+.main {
+  min-height: 100vh;
+  position: relative;
+}
+
 .block-list {
   display: flex;
   flex-flow: row wrap;
