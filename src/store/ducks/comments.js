@@ -34,7 +34,11 @@ const clear = { type: types.CLEAR };
 
 const fetchComments = commentsIds => (dispatch, getState) => {
   dispatch(gett());
-
+  if (!commentsIds) {
+    dispatch(spinnerDuck.actions.hide);
+    dispatch(succ(selectors.items(defaultState)));
+    return selectors.items(defaultState);
+  }
   Promise.all(commentsIds.map(fetchComment))
     .then(comments => {
       dispatch(spinnerDuck.actions.hide);
