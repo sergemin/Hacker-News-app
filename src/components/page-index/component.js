@@ -25,16 +25,12 @@ class PageIndex extends React.Component {
   }
   render() {
     const { topStoriesIds, postsPerPage, posts } = this.props;
-    return [
-      <PostsList
-        posts={posts}
-        key={1}
-      />,
-      <Pagination
-        paginationCount={topStoriesIds.length/postsPerPage}
-        key={2}
-      />
-    ];
+    return (
+      <div className='container'>
+        <PostsList posts={posts} />
+        <Pagination paginationCount={topStoriesIds.length/postsPerPage} />
+      </div>
+    )
   }
 }
 

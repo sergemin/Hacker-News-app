@@ -5,6 +5,7 @@ import './styles.css';
 const Header = () => (
     <header className="header">
         <div className="container">
+          <h1 className="section-title">Hackernews App</h1>
             <div className="header-block">
                 <div className="header__description">
                     <p className="header__description-text">

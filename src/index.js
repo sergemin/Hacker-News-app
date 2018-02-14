@@ -5,9 +5,9 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import App from './App';
+import App from './app';
 import * as ducks from './store/ducks';
-import './index.css';
+import './styles.css';
 
 export const reducer =  combineReducers({
   ...ducks.commentsDuck.reducer,
