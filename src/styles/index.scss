@@ -1,10 +1,12 @@
 @import '../../node_modules/normalize.css/normalize.css';
+@import "./themes";
 
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
   width: 100%;
+  color: $color-text;
 }
 * {
   box-sizing: border-box;
@@ -17,4 +19,9 @@ body {
 .main {
   min-height: 100vh;
   position: relative;
+}
+
+.section-title {
+  color: $color-text;
+  font-weight: bold;
 }
