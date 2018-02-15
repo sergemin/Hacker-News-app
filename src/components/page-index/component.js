@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Grid from 'material-ui/Grid';
 import { PostsList, Pagination } from './..';
 
 const offset = props => props.match.params.IndexOffset || 1;
@@ -28,12 +27,10 @@ class PageIndex extends React.Component {
   render() {
     const { topStoriesIds, postsPerPage, posts } = this.props;
     return (
-      <Grid container spacing={24}>
-        <Grid item xs={12}>
-          <PostsList posts={posts} />
-          <Pagination paginationCount={topStoriesIds.length/postsPerPage} />
-        </Grid>
-      </Grid>
+      <div>
+        <PostsList posts={posts} />
+        <Pagination paginationCount={topStoriesIds.length/postsPerPage} />
+      </div>
     )
   }
 }

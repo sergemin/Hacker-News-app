@@ -5,17 +5,30 @@ import { Link } from 'react-router-dom';
 import './styles.scss';
 
 const PostCard = ({ post }) => (
-    <div className="post-item">
-        <Link className='post-item__link' to={`/posts/${post.id}`}>
-            <div className="post-item__inner">
-                <h3 className="post-item__title">{post.title}</h3>
-                <p className='post-item__author'>{post.by}</p>
-                <p>{post.score}</p>
-                <p>{moment(post.time).format('MM DD YYYY')}</p>
-                <p className="post-item__comments">{post.kids ? post.kids.length : 0}</p>
-            </div>
-        </Link>
+  <div className='post-card'>
+    <div className='post-card__inner'>
+      <div className="posts-card__title">
+        {post.title}
+      </div>
+      <div className="posts-card__author">
+        {post.by}
+      </div>
+      <div className="posts-card__score">
+        {post.score}
+      </div>
+      <div className="posts-card__date">
+        {moment(post.time).format('MM DD YYYY')}
+      </div>
+      <div className="posts-card__comments">
+        {post.kids ? post.kids.length : 0}
+      </div>
     </div>
+    <div>
+      <div>
+        <Link to={`/posts/${post.id}`}> Learn More</Link>
+      </div>
+    </div>
+  </div>
 );
 
 PostCard.propTypes = {
