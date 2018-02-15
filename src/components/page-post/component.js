@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Comments } from '..';
-import './styles.css';
+import './styles.scss';
 
 export default class PagePost extends React.Component {
   componentDidMount() {

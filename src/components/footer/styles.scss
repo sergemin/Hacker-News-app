@@ -1,0 +1,14 @@
+footer {
+    padding: 15px 0;
+    background: #118C8B;
+    color: #000D29;
+
+    &__contacts {
+        margin: 0;
+        padding: 0;
+
+        &-item {
+            list-style: none;
+        }
+    }
+}

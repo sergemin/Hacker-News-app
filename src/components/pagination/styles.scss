@@ -1,0 +1,17 @@
+.pagination {
+    margin: 0;
+    padding: 10px 0;
+
+    &__item {
+        display: inline-block;
+    }
+
+    &__link {
+        display: inline-block;
+        padding: 5px;
+
+        &-active {
+            background: rgba(255,255,255,.4);
+        }
+    }
+}

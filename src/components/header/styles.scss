@@ -1,0 +1,30 @@
+header {
+    padding: 15px 0;
+    background: #118C8B;
+    color: #000D29;
+
+    &-block {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+    }
+
+    &__description {
+        margin: 0 15px 0 0;
+        padding: 0;
+
+        &-text {
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    &-menu {
+        margin: 0;
+        padding: 0;
+
+        &__item {
+            list-style: none;
+        }
+    }
+}

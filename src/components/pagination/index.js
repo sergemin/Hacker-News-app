@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './styles.css';
+import './styles.scss';
 
 const Pagination = ({ paginationCount }) => {
     let values = [];

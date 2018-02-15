@@ -4,7 +4,8 @@
 .link-app {
     text-transform: uppercase;
     font-style: italic;
-}
-.link-app:hover {
-    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+    }
 }

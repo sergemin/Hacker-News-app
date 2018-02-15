@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import PageIndex from './component';
 import { postsPerPageDuck, topStoriesIdsDuck, postsDuck, spinnerDuck } from './../../store/ducks';
 
-
 const mapStateToProps = state => ({
   topStoriesIds: topStoriesIdsDuck.selectors.items(state),
   posts: postsDuck.selectors.items(state),

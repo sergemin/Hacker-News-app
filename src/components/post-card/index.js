@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import './styles.css';
+import './styles.scss';
 
 const PostCard = ({ post }) => (
     <div className="post-item">

@@ -1,6 +1,6 @@
 import React from 'react';
 import spinner from './../../images/spinner.svg';
-import './styles.css';
+import './styles.scss';
 
 const Spinner = ({ spinnerStatus }) => (
   <div className={`spinner ${spinnerStatus === 'HIDDEN' ? 'spinner-hidden' : ''}`}>
