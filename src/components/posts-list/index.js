@@ -8,7 +8,7 @@ function PostsList({ posts }) {
   return (
     <Row className='posts-list'>
       {posts.map(post => (
-        <Col span={6} className="post-list__item" key = {post.id}>
+        <Col span={8} className="posts-list__item" key={post.id}>
           <PostCard post={post} />
         </Col>
       ))}

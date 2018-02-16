@@ -27,7 +27,7 @@ class PageIndex extends React.Component {
   render() {
     const { topStoriesIds, postsPerPage, posts } = this.props;
     return (
-      <div>
+      <div className='container'>
         <PostsList posts={posts} />
         <Pagination paginationCount={topStoriesIds.length/postsPerPage} />
       </div>

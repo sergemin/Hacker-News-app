@@ -9,19 +9,10 @@ header {
         align-items: center;
     }
 
-    &__description {
-        margin: 0 15px 0 0;
-        padding: 0;
-
-        &-text {
-            margin: 0;
-            padding: 0;
-        }
-    }
-
     &-menu {
         margin: 0;
         padding: 0;
+        background: transparent !important;
 
         &__item {
             list-style: none;
