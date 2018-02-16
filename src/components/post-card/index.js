@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
-import { Card, Badge, Avatar, Icon } from 'antd';
+import { Card, Avatar } from 'antd';
 import './styles.scss';
 
 const PostCard = ({ post }) => (

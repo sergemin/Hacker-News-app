@@ -2,14 +2,17 @@ import PropTypes from 'prop-types';
 
 export const NS = 'postsPerPage';
 
-const defaultState = '10';
+const defaultState = 10;
 const shape = PropTypes.string;
 
 const types = {
   CHANGE: `${NS}/CHANGE`,
 };
 
-const changePostsPerPage = count => ({ type: types.CHANGE, payload: count }); //middleware is needed
+const changePostsPerPage = count => ({
+  type: types.CHANGE,
+  payload: count
+});
 
 export const actions = {
   changePostsPerPage,

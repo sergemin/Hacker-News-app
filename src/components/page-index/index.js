@@ -13,6 +13,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchPostsIds: topStoriesIdsDuck.actions.fetchPostsIds,
   fetchFilteredPosts: postsDuck.actions.fetchFilteredPosts,
+  changePostsPerPage: postsPerPageDuck.actions.changePostsPerPage,
   showSpinner: spinnerDuck.actions.showSpinner,
   hideSpinner: spinnerDuck.actions.hideSpinner,
 };
