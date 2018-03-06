@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { api } from './../../helpers';
-import { spinnerDuck } from "./";
 
 const isWithinLimits = (min, max) => (x, i) => (i >= min && i < max);
 
@@ -45,7 +44,6 @@ const fetchFilteredPosts = (offset, topStoriesIds, postsPerPage) => (dispatch, g
 
   return Promise.resolve({offset, topStoriesIds, postsPerPage})
     .then(({topStoriesIds, offset, postsPerPage}) => {
-      dispatch(spinnerDuck.actions.show);
       return filterPostIdsForCurrentPage(
         topStoriesIds,
         offset,
@@ -53,7 +51,6 @@ const fetchFilteredPosts = (offset, topStoriesIds, postsPerPage) => (dispatch, g
     })
     .then(filteredPostsIds => fetchPosts(filteredPostsIds))
     .then(filteredPosts => {
-      dispatch(spinnerDuck.actions.hide);
       dispatch(succ(filteredPosts));
       return filteredPosts;
     })

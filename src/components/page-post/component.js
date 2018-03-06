@@ -5,7 +5,6 @@ import './styles.css';
 
 export default class PagePost extends React.Component {
   componentDidMount() {
-    this.props.showSpinner();
     this.props.fetchInfo(this.props.match.params.postID)
       .then(({kids}) => this.props.fetchComments(kids))
   }

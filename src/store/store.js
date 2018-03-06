@@ -9,7 +9,6 @@ export const reducer =  combineReducers({
   ...ducks.postsDuck.reducer,
   ...ducks.postsPerPageDuck.reducer,
   ...ducks.topStoriesIdsDuck.reducer,
-  ...ducks.spinnerDuck.reducer,
 });
 
 const middleware = [
