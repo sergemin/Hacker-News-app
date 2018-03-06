@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Pagination } from 'antd';
 import { PostsList } from './..';
 
 const offset = props => props.match.params.IndexOffset || 1;
 // convert array of posts to array of postsids and convert it to a string
-const postsIds = xs => xs.map(x => x.id).join(',');
+const postsIds = arr => arr.map(item => item.id).join(',');
 
-class PageIndex extends React.Component {
+class PageIndex extends Component {
   componentDidMount() {
     this.props.fetchPostsIds()
       .then(postsStoriesIds => this.props.fetchFilteredPosts(
@@ -29,7 +29,7 @@ class PageIndex extends React.Component {
     this.props.history.push(`${String(current) === '1' ? '' : `/${current}`}`);
   }
   render() {
-    const { topStoriesIds, posts } = this.props;
+    const { topStoriesIds, posts, fetchFilteredPosts } = this.props;
 
     return (
       <div className="container">
@@ -39,7 +39,7 @@ class PageIndex extends React.Component {
             showSizeChanger
             onShowSizeChange={this.onShowSizeChange}
             defaultCurrent={this.props.match.params.IndexOffset}
-            onChange={this.onShowSizeChange}
+            onChange={(index, perPage) => fetchFilteredPosts(index, topStoriesIds, perPage)}
             total={topStoriesIds.length}
           />
         </div>
@@ -57,10 +57,10 @@ PageIndex.propTypes = {
   posts: PropTypes.array.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   topStoriesIds: PropTypes.array.isRequired,
+  changePostsPerPage: PropTypes.func.isRequired,
   postsPerPage: PropTypes.number.isRequired,
   fetchPostsIds: PropTypes.func.isRequired,
   fetchFilteredPosts: PropTypes.func.isRequired,
-  changePostsPerPage: PropTypes.func.isRequired,
 };
 
 export default PageIndex;

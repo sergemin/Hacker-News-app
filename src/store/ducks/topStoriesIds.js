@@ -33,8 +33,14 @@ const fetchPostsIds = () => (dispatch, getState) => {
   }
   dispatch(gett());
   return api('/topstories.json')
-    .then(topStoriesIds => { dispatch(succ(topStoriesIds)); return topStoriesIds; })
-    .catch(errorApi => { dispatch(fail(errorApi.toString())); return selectors.error(getState()); });
+    .then(topStoriesIds => {
+      dispatch(succ(topStoriesIds));
+      return topStoriesIds;
+    })
+    .catch(errorApi => {
+      dispatch(fail(errorApi.toString()));
+      return selectors.error(getState());
+    });
 };
 
 export const actions = {

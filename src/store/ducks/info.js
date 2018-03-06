@@ -32,8 +32,14 @@ const clear = { type: types.CLEAR };
 const fetchInfo = idPost => (dispatch, getState) => {
   dispatch(gett());
   return api(`/item/${idPost}.json`)
-    .then(userInfo => { dispatch(succ(userInfo)); return info; })
-    .catch(errorApi => { dispatch(fail(errorApi)); return selectors.error(getState()); });
+    .then(userInfo => {
+      dispatch(succ(userInfo));
+      return info;
+    })
+    .catch(errorApi => {
+      dispatch(fail(errorApi));
+      return selectors.error(getState());
+    });
 };
 const clearInfo = () => dispatch => {
   dispatch(clear);

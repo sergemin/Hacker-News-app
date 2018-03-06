@@ -2,18 +2,18 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import PageIndex from './component';
-import { postsPerPageDuck, topStoriesIdsDuck, postsDuck } from './../../store/ducks';
+import * as ducks from './../../store/ducks';
 
 const mapStateToProps = state => ({
-  topStoriesIds: topStoriesIdsDuck.selectors.items(state),
-  posts: postsDuck.selectors.items(state),
-  postsPerPage: postsPerPageDuck.selectors.root(state),
+  postsPerPage: ducks.postsPerPageDuck.selectors.root(state),
+  topStoriesIds: ducks.topStoriesIdsDuck.selectors.items(state),
+  posts: ducks.postsDuck.selectors.items(state),
 });
 
 const mapDispatchToProps = {
-  fetchPostsIds: topStoriesIdsDuck.actions.fetchPostsIds,
-  fetchFilteredPosts: postsDuck.actions.fetchFilteredPosts,
-  changePostsPerPage: postsPerPageDuck.actions.changePostsPerPage,
+  changePostsPerPage: ducks.postsPerPageDuck.actions.changePostsPerPage,
+  fetchPostsIds: ducks.topStoriesIdsDuck.actions.fetchPostsIds,
+  fetchFilteredPosts: ducks.postsDuck.actions.fetchFilteredPosts,
 };
 
 const enhance = compose(

@@ -9,7 +9,7 @@ const Header = () => (
       <div className="header-block">
         <div className="header__description">
           <p className="header__description-text">
-                        Build apps with us!
+            Build apps with us!
           </p>
         </div>
         <nav className="header-nav">

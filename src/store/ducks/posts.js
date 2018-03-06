@@ -10,9 +10,8 @@ const filterPostIdsForCurrentPage = (posts, pageIndex, postsPerPage) => {
   return posts.filter(isWithinLimits(minLimit, maxLimit));
 };
 
-const fetchPost = x => api(`/item/${x}.json`);
+const fetchPost = id => api(`/item/${id}.json`);
 const fetchPosts = posts => Promise.all(posts.map(fetchPost));
-
 
 export const NS = 'pagePosts';
 
@@ -43,17 +42,17 @@ const fail = payload => ({ type: types.FAIL, payload });
 const fetchFilteredPosts = (offset, topStoriesIds, postsPerPage) => (dispatch, getState) => {
   dispatch(gett());
 
-  return Promise.resolve({ offset, topStoriesIds, postsPerPage })
-    .then(({ topStoriesIds, offset, postsPerPage }) => filterPostIdsForCurrentPage(
-      topStoriesIds,
-      offset,
-      postsPerPage))
+  return Promise.resolve()
+    .then(() => filterPostIdsForCurrentPage(topStoriesIds, offset, postsPerPage))
     .then(filteredPostsIds => fetchPosts(filteredPostsIds))
     .then(filteredPosts => {
       dispatch(succ(filteredPosts));
       return filteredPosts;
     })
-    .catch(errorApi => { dispatch(fail(errorApi)); return selectors.error(getState()); });
+    .catch(errorApi => {
+      dispatch(fail(errorApi));
+      return selectors.error(getState());
+    });
 };
 
 export const actions = {

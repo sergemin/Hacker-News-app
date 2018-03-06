@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Header, Footer, PageIndex, PagePost } from '../components/index';
-import './styles.css';
+import './styles.scss';
 
 const App = () => (
   <div className="app">
