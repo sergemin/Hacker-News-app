@@ -6,7 +6,8 @@ const isWithinLimits = (min, max) => (x, i) => (i >= min && i < max);
 const filterPostIdsForCurrentPage = (posts, pageIndex, postsPerPage) => {
   const minLimit = postsPerPage * (pageIndex - 1);
   const maxLimit = postsPerPage * pageIndex;
-  return posts.filter(isWithinLimits(minLimit, maxLimit))
+
+  return posts.filter(isWithinLimits(minLimit, maxLimit));
 };
 
 const fetchPost = x => api(`/item/${x}.json`);
@@ -39,22 +40,20 @@ const gett = () => ({ type: types.GETT });
 const succ = payload => ({ type: types.SUCC, payload });
 const fail = payload => ({ type: types.FAIL, payload });
 
-const fetchFilteredPosts = (offset, topStoriesIds, postsPerPage) => (dispatch, getState) =>  {
+const fetchFilteredPosts = (offset, topStoriesIds, postsPerPage) => (dispatch, getState) => {
   dispatch(gett());
 
-  return Promise.resolve({offset, topStoriesIds, postsPerPage})
-    .then(({topStoriesIds, offset, postsPerPage}) => {
-      return filterPostIdsForCurrentPage(
-        topStoriesIds,
-        offset,
-        postsPerPage);
-    })
+  return Promise.resolve({ offset, topStoriesIds, postsPerPage })
+    .then(({ topStoriesIds, offset, postsPerPage }) => filterPostIdsForCurrentPage(
+      topStoriesIds,
+      offset,
+      postsPerPage))
     .then(filteredPostsIds => fetchPosts(filteredPostsIds))
     .then(filteredPosts => {
       dispatch(succ(filteredPosts));
       return filteredPosts;
     })
-    .catch(error => { dispatch(fail(error)); return selectors.error(getState())});
+    .catch(errorApi => { dispatch(fail(errorApi)); return selectors.error(getState()); });
 };
 
 export const actions = {
@@ -63,11 +62,11 @@ export const actions = {
 
 const reducer = (state = defaultState, { type, payload }) => {
   switch (type) {
-    case types.GETT :
+    case types.GETT:
       return { ...state, isLoading: true };
-    case types.SUCC :
+    case types.SUCC:
       return { ...state, isLoading: false, items: payload };
-    case types.FAIL :
+    case types.FAIL:
       return { ...state, isLoading: false, items: [], error: payload };
     default:
       return state;

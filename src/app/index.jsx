@@ -6,12 +6,12 @@ import './styles.css';
 const App = () => (
   <div className="app">
     <Router>
-      <div className='page'>
+      <div className="page">
         <Header />
-        <main className='main'>
+        <main className="main">
           <Switch>
-            <Route path="/:IndexOffset?" exact component={PageIndex}/>
-            <Route path="/posts/:postID" component={PagePost}/>
+            <Route path="/:IndexOffset?" exact component={PageIndex} />
+            <Route path="/posts/:postID" component={PagePost} />
           </Switch>
         </main>
         <Footer />
@@ -20,4 +20,4 @@ const App = () => (
   </div>
 );
 
-export default App
+export default App;

@@ -8,36 +8,33 @@ const offset = props => props.match.params.IndexOffset || 1;
 const postsIds = xs => xs.map(x => x.id).join(',');
 
 class PageIndex extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onShowSizeChange = this.onShowSizeChange.bind(this);
-  }
-  onShowSizeChange(current, pageSize) {
-    this.props.changePostsPerPage(pageSize);
-    this.props.history.push(`${String(current) === '1' ? '' : '/'+current}`);
-  }
   componentDidMount() {
     this.props.fetchPostsIds()
       .then(postsStoriesIds => this.props.fetchFilteredPosts(
         offset(this.props),
         postsStoriesIds,
-        this.props.postsPerPage
+        this.props.postsPerPage,
       ));
   }
   componentWillReceiveProps(nextProps) {
-    if(offset(nextProps) !== offset(this.props) || this.props.postsPerPage !== nextProps.postsPerPage) {
-      this.props.fetchFilteredPosts(offset(nextProps), this.props.topStoriesIds, nextProps.postsPerPage)
+    if (offset(nextProps) !== offset(this.props) || this.props.postsPerPage !== nextProps.postsPerPage) {
+      this.props.fetchFilteredPosts(offset(nextProps), this.props.topStoriesIds, nextProps.postsPerPage);
     }
   }
   shouldComponentUpdate(nextProps) {
     return postsIds(this.props.posts) !== postsIds(nextProps.posts);
   }
+  onShowSizeChange(current, pageSize) {
+    this.props.changePostsPerPage(pageSize);
+    this.props.history.push(`${String(current) === '1' ? '' : `/${current}`}`);
+  }
   render() {
     const { topStoriesIds, posts } = this.props;
+
     return (
-      <div className='container'>
+      <div className="container">
         <PostsList posts={posts} />
-        <div className='pagination'>
+        <div className="pagination">
           <Pagination
             showSizeChanger
             onShowSizeChange={this.onShowSizeChange}
@@ -47,15 +44,23 @@ class PageIndex extends React.Component {
           />
         </div>
       </div>
-    )
+    );
   }
 }
 
 PageIndex.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   match: PropTypes.object.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  history: PropTypes.object.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   posts: PropTypes.array.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   topStoriesIds: PropTypes.array.isRequired,
   postsPerPage: PropTypes.number.isRequired,
+  fetchPostsIds: PropTypes.func.isRequired,
+  fetchFilteredPosts: PropTypes.func.isRequired,
+  changePostsPerPage: PropTypes.func.isRequired,
 };
 
 export default PageIndex;

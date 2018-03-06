@@ -11,7 +11,7 @@ const types = {
 
 const changePostsPerPage = count => ({
   type: types.CHANGE,
-  payload: count
+  payload: count,
 });
 
 export const actions = {
@@ -26,7 +26,7 @@ export const selectors = {
 
 const reducer = (state = defaultState, { type, payload }) => {
   switch (type) {
-    case types.CHANGE :
+    case types.CHANGE:
       return payload;
     default:
       return state;
