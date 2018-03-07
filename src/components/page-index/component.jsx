@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Pagination } from 'antd';
 import { PostsList } from './..';
 
 const offset = props => props.match.params.IndexOffset || 1;
@@ -29,28 +28,15 @@ class PageIndex extends Component {
     this.props.history.push(`${String(current) === '1' ? '' : `/${current}`}`);
   }
   render() {
-    const { topStoriesIds, posts, fetchFilteredPosts } = this.props;
-
     return (
       <div className="container">
-        <PostsList posts={posts} />
-        <div className="pagination">
-          <Pagination
-            showSizeChanger
-            onShowSizeChange={this.onShowSizeChange}
-            defaultCurrent={this.props.match.params.IndexOffset}
-            onChange={(index, perPage) => fetchFilteredPosts(index, topStoriesIds, perPage)}
-            total={topStoriesIds.length}
-          />
-        </div>
+        <PostsList posts={this.props.posts} />
       </div>
     );
   }
 }
 
 PageIndex.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  match: PropTypes.object.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   history: PropTypes.object.isRequired,
   // eslint-disable-next-line react/forbid-prop-types

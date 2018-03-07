@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { api } from '../../helpers/index';
+import { api } from '../../helpers';
 
 const fetchComment = x => api(`/item/${x}.json`);
 
