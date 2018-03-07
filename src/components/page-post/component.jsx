@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Comments } from '..';
-import './styles.css';
+import './styles.scss';
 
 export default class PagePost extends React.Component {
   componentDidMount() {
-    this.props.showSpinner();
     this.props.fetchInfo(this.props.match.params.postID)
-      .then(({kids}) => this.props.fetchComments(kids))
+      .then(({ kids }) => this.props.fetchComments(kids));
   }
   componentWillUnmount() {
     this.props.clearInfo();
@@ -15,6 +14,7 @@ export default class PagePost extends React.Component {
   }
   render() {
     const { postInfo, comments } = this.props;
+
     return (
       <section className="page-section">
         <div className="container">
@@ -25,11 +25,18 @@ export default class PagePost extends React.Component {
           <Comments comments={comments} />
         </div>
       </section>
-    )
+    );
   }
 }
 PagePost.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   match: PropTypes.object.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   postInfo: PropTypes.object.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   comments: PropTypes.object.isRequired,
+  fetchInfo: PropTypes.func.isRequired,
+  fetchComments: PropTypes.func.isRequired,
+  clearInfo: PropTypes.func.isRequired,
+  clearComments: PropTypes.func.isRequired,
 };

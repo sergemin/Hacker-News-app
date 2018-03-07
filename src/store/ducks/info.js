@@ -32,27 +32,33 @@ const clear = { type: types.CLEAR };
 const fetchInfo = idPost => (dispatch, getState) => {
   dispatch(gett());
   return api(`/item/${idPost}.json`)
-    .then(info => { dispatch(succ(info)); return info })
-    .catch(error => { dispatch(fail(error)); return selectors.error(getState())});
+    .then(userInfo => {
+      dispatch(succ(userInfo));
+      return info;
+    })
+    .catch(errorApi => {
+      dispatch(fail(errorApi));
+      return selectors.error(getState());
+    });
 };
 const clearInfo = () => dispatch => {
   dispatch(clear);
 };
 
 export const actions = {
-  fetchInfo, clearInfo
+  fetchInfo, clearInfo,
 };
 
 
 const reducer = (state = defaultState, { type, payload }) => {
   switch (type) {
-    case types.GETT :
+    case types.GETT:
       return { ...state, isLoading: true };
-    case types.SUCC :
+    case types.SUCC:
       return { ...state, isLoading: false, info: payload };
-    case types.FAIL :
+    case types.FAIL:
       return { ...state, isLoading: false, info: {}, error: payload };
-    case types.CLEAR :
+    case types.CLEAR:
       return { ...state, isLoading: false, info: {} };
     default:
       return state;

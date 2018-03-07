@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
-import { api } from '../../helpers/index';
-import { spinnerDuck } from "./";
+import { api } from '../../helpers';
 
 const fetchComment = x => api(`/item/${x}.json`);
 
@@ -35,20 +34,18 @@ const clear = { type: types.CLEAR };
 const fetchComments = commentsIds => (dispatch, getState) => {
   dispatch(gett());
   if (!commentsIds) {
-    dispatch(spinnerDuck.actions.hide);
     dispatch(succ(selectors.items(defaultState)));
     return selectors.items(defaultState);
   }
-  Promise.all(commentsIds.map(fetchComment))
+  return Promise.all(commentsIds.map(fetchComment))
     .then(comments => {
-      dispatch(spinnerDuck.actions.hide);
       dispatch(succ(comments));
       return selectors.items(getState());
     })
-    .catch(error => {
-      dispatch(fail(error.toString()));
+    .catch(errorApi => {
+      dispatch(fail(errorApi.toString()));
       return selectors.error(getState());
-    })
+    });
 };
 const clearComments = () => dispatch => {
   dispatch(clear);
@@ -58,13 +55,13 @@ export const actions = { fetchComments, clearComments };
 
 const reducer = (state = defaultState, { type, payload }) => {
   switch (type) {
-    case types.GETT :
+    case types.GETT:
       return { ...state, isLoading: true };
-    case types.SUCC :
+    case types.SUCC:
       return { ...state, isLoading: false, items: payload };
-    case types.FAIL :
+    case types.FAIL:
       return { ...state, isLoading: false, items: [], error: payload };
-    case types.CLEAR :
+    case types.CLEAR:
       return { ...state, isLoading: false, items: [] };
     default:
       return state;
