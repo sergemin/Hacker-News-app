@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Header, Footer, PageIndex, PagePost } from '../components';
-import './styles.scss';
 
 const App = () => (
   <div className="app">

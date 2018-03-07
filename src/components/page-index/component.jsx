@@ -23,10 +23,6 @@ class PageIndex extends Component {
   shouldComponentUpdate(nextProps) {
     return postsIds(this.props.posts) !== postsIds(nextProps.posts);
   }
-  onShowSizeChange(current, pageSize) {
-    this.props.changePostsPerPage(pageSize);
-    this.props.history.push(`${String(current) === '1' ? '' : `/${current}`}`);
-  }
   render() {
     return (
       <div className="container">
@@ -38,12 +34,9 @@ class PageIndex extends Component {
 
 PageIndex.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
-  history: PropTypes.object.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   posts: PropTypes.array.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   topStoriesIds: PropTypes.array.isRequired,
-  changePostsPerPage: PropTypes.func.isRequired,
   postsPerPage: PropTypes.number.isRequired,
   fetchPostsIds: PropTypes.func.isRequired,
   fetchFilteredPosts: PropTypes.func.isRequired,
