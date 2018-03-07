@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './styles.scss';
 
 const Comments = ({ comments }) => {
   if (comments.items.length === 0) {
