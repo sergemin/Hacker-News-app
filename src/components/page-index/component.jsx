@@ -43,8 +43,11 @@ class PageIndex extends Component {
           <Pagination
             showSizeChanger
             onShowSizeChange={this.onShowSizeChange}
-            defaultCurrent={this.props.match.params.IndexOffset}
-            onChange={(index, perPage) => fetchFilteredPosts(index, topStoriesIds, perPage)}
+            defaultCurrent={Number(this.props.match.params.IndexOffset)}
+            onChange={(index, perPage) => {
+              fetchFilteredPosts(index, topStoriesIds, perPage);
+              this.props.history.push(`${String(index) === '1' ? '' : `/${index}`}`);
+            }}
             total={topStoriesIds.length}
           />
         </div>
